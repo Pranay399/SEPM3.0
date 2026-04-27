@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DevOps Intelligence - Taskmaster View</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-high": "#e8e8e8",
+                        "secondary-container": "#d8dffa",
+                        "surface-tint": "#0059c5",
+                        "inverse-surface": "#2f3131",
+                        "on-error": "#ffffff",
+                        "outline": "#727785",
+                        "background": "#f9f9f9",
+                        "outline-variant": "#c2c6d6",
+                        "error": "#ba1a1a",
+                        "primary-fixed-dim": "#aec6ff",
+                        "tertiary-fixed-dim": "#c7c6cb",
+                        "on-primary": "#ffffff",
+                        "surface-bright": "#f9f9f9",
+                        "tertiary-fixed": "#e3e2e7",
+                        "on-tertiary-container": "#f0eef4",
+                        "on-secondary-fixed": "#141b2e",
+                        "on-surface-variant": "#424753",
+                        "on-secondary-container": "#5b6279",
+                        "primary-container": "#1868db",
+                        "primary": "#0050b2",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed-variant": "#46464b",
+                        "on-surface": "#1a1c1c",
+                        "surface-container": "#eeeeee",
+                        "surface-container-highest": "#e2e2e2",
+                        "secondary-fixed": "#dbe2fd",
+                        "on-background": "#1a1c1c",
+                        "surface-variant": "#e2e2e2",
+                        "error-container": "#ffdad6",
+                        "surface-container-low": "#f3f3f4",
+                        "surface": "#f9f9f9",
+                        "primary-fixed": "#d8e2ff",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-fixed": "#1a1b1f",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed-dim": "#bfc6e0",
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "inverse-on-surface": "#f0f1f1",
+                        "surface-dim": "#dadada",
+                        "on-primary-fixed": "#001a43",
+                        "tertiary": "#535458",
+                        "tertiary-container": "#6c6c71",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-container": "#ecefff",
+                        "secondary": "#575e74",
+                        "inverse-primary": "#aec6ff",
+                        "on-primary-fixed-variant": "#004397"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin": "24px",
+                        "gutter": "16px",
+                        "lg": "24px",
+                        "xl": "32px",
+                        "sm": "8px",
+                        "base": "4px",
+                        "md": "16px",
+                        "xs": "4px"
+                    },
+                    "fontFamily": {
+                        "code-sm": ["monospace"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "code-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-xl": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "headline-sm": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #ffffff; }
+    </style>
+</head>
+<body class="font-body-md text-body-md text-on-surface flex bg-background h-screen overflow-hidden">
+<!-- SideNavBar -->
+<nav class="bg-slate-50 dark:bg-slate-900 docked left-0 h-screen w-64 border-r border-slate-200 dark:border-slate-800 flat no shadows fixed left-0 top-12 bottom-0 flex flex-col p-4 gap-2 z-40 md:flex hidden">
+<div class="mb-lg">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Automation Hub</h2>
+<p class="font-label-md text-label-md text-on-surface-variant">Enterprise Tier</p>
+</div>
+<button class="bg-primary-container text-on-primary-container w-full h-10 rounded mb-lg font-label-md text-label-md flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" data-icon="play_arrow">play_arrow</span>
+            Deploy Pipeline
+        </button>
+<div class="flex flex-col gap-sm flex-grow">
+<a class="flex items-center gap-3 px-3 py-2 rounded-md font-['Inter'] text-[13px] leading-tight text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all duration-150 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="psychology">psychology</span>
+                Strategist
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-md font-['Inter'] text-[13px] leading-tight text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all duration-150 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="architecture">architecture</span>
+                Architect
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-md font-['Inter'] text-[13px] leading-tight text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all duration-150 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="fact_check">fact_check</span>
+                QA/QC
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-md font-['Inter'] text-[13px] leading-tight text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all duration-150 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="terminal">terminal</span>
+                DevOps
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-md font-['Inter'] text-[13px] leading-tight bg-white dark:bg-slate-800 text-blue-600 dark:text-blue-400 font-semibold border border-slate-200 dark:border-slate-700 transition-all duration-150 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="assignment">assignment</span>
+                Taskmaster
+            </a>
+</div>
+<div class="mt-auto pt-4 border-t border-slate-200 dark:border-slate-800 flex flex-col gap-sm">
+<a class="flex items-center gap-3 px-3 py-2 rounded-md font-['Inter'] text-[13px] leading-tight text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all duration-150 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="menu_book">menu_book</span>
+                Docs
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-md font-['Inter'] text-[13px] leading-tight text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all duration-150 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="contact_support">contact_support</span>
+                Support
+            </a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col md:ml-64 relative min-w-0">
+<!-- TopNavBar -->
+<header class="bg-white dark:bg-slate-950 font-['Inter'] text-sm tracking-tight docked full-width top-0 border-b border-slate-200 dark:border-slate-800 z-50 flat no shadows flex justify-between items-center h-12 px-6 w-full sticky top-0">
+<div class="flex items-center gap-4">
+<div class="text-lg font-bold text-slate-900 dark:text-white">DevOps Intelligence</div>
+</div>
+<div class="flex-1 flex justify-center max-w-md mx-4">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[18px]" data-icon="search">search</span>
+<input class="w-full h-8 pl-9 pr-3 bg-surface-container-low border border-slate-200 rounded text-sm focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition-colors" placeholder="Search resources..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-1.5 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors rounded cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined text-[20px]" data-icon="notifications">notifications</span>
+</button>
+<button class="p-1.5 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors rounded cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined text-[20px]" data-icon="help_outline">help_outline</span>
+</button>
+<button class="p-1.5 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors rounded cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined text-[20px]" data-icon="settings">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-secondary-container ml-2 overflow-hidden border border-slate-200 flex items-center justify-center">
+<img alt="Administrator Avatar" class="w-full h-full object-cover" data-alt="close-up portrait of a professional male administrator in a modern office setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLxzNAy7iLTt6u6AsUS55geiGE7YDulTRX2Vtx6ME1cn99vsEzwd6yO047xMFN_k6Ywb6zBX9Yr_UOtilAGDlWEdFRmdBl-7C7K74o_sitKkrS8IlGrFhr2Dv3PnH3eDXDYRhOCGMPnUxM_aigEp5_WxMIUqeoJcunhyZ5BxpL9bsh5p64hRBP1115SsE0enskHajL8y1jFcR0Y-9j35Cib4DGMDDUPh7X8IiS-o8lagXM135CMuHQqdeDkeFpRIrgSyhe-_or_ud2"/>
+</div>
+</div>
+</header>
+<!-- Canvas -->
+<main class="flex-1 overflow-y-auto p-margin bg-background">
+<div class="mb-lg flex justify-between items-end">
+<div>
+<h1 class="font-headline-xl text-headline-xl text-on-surface mb-xs">Sprint Overview: Alpha Release</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Taskmaster orchestrating 4 agent roles across 12 active tasks.</p>
+</div>
+<div class="flex gap-2">
+<button class="h-8 px-3 border border-outline rounded text-on-surface font-label-md text-label-md flex items-center gap-1 hover:bg-surface-container-low">
+<span class="material-symbols-outlined text-[16px]" data-icon="filter_list">filter_list</span>
+                        Filter
+                    </button>
+<button class="h-8 px-3 bg-primary-container text-on-primary-container rounded font-label-md text-label-md flex items-center gap-1 hover:bg-primary transition-colors">
+<span class="material-symbols-outlined text-[16px]" data-icon="add">add</span>
+                        New Task
+                    </button>
+</div>
+</div>
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-lg h-[calc(100vh-180px)]">
+<!-- Left Col: Task Breakdown & Roles -->
+<div class="xl:col-span-1 flex flex-col gap-lg h-full overflow-hidden">
+<!-- Role Allocation -->
+<div class="bg-surface border border-outline-variant rounded flex flex-col">
+<div class="p-3 border-b border-outline-variant bg-surface-container-low flex justify-between items-center">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Active Agents</h3>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-md text-[10px]">4 Online</span>
+</div>
+<div class="p-3 flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-blue-700">
+<span class="material-symbols-outlined text-[14px]" data-icon="architecture">architecture</span>
+</div>
+<div>
+<div class="font-label-md text-label-md text-on-surface leading-none">Architect</div>
+<div class="font-body-md text-[11px] text-on-surface-variant">System Design</div>
+</div>
+</div>
+<div class="w-16 bg-surface-container-high h-1.5 rounded-full overflow-hidden">
+<div class="bg-blue-600 h-full w-[80%]"></div>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700">
+<span class="material-symbols-outlined text-[14px]" data-icon="terminal">terminal</span>
+</div>
+<div>
+<div class="font-label-md text-label-md text-on-surface leading-none">DevOps</div>
+<div class="font-body-md text-[11px] text-on-surface-variant">Infrastructure</div>
+</div>
+</div>
+<div class="w-16 bg-surface-container-high h-1.5 rounded-full overflow-hidden">
+<div class="bg-emerald-600 h-full w-[45%]"></div>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-purple-100 flex items-center justify-center text-purple-700">
+<span class="material-symbols-outlined text-[14px]" data-icon="fact_check">fact_check</span>
+</div>
+<div>
+<div class="font-label-md text-label-md text-on-surface leading-none">QA/QC</div>
+<div class="font-body-md text-[11px] text-on-surface-variant">Testing</div>
+</div>
+</div>
+<div class="w-16 bg-surface-container-high h-1.5 rounded-full overflow-hidden">
+<div class="bg-purple-600 h-full w-[20%]"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Task List (Standard Table/List hybrid) -->
+<div class="bg-surface border border-outline-variant rounded flex-1 flex flex-col overflow-hidden">
+<div class="p-3 border-b border-outline-variant bg-surface-container-low flex justify-between items-center shrink-0">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Task Backlog</h3>
+<span class="material-symbols-outlined text-on-surface-variant text-[18px] cursor-pointer" data-icon="more_horiz">more_horiz</span>
+</div>
+<div class="overflow-y-auto p-2 flex flex-col gap-2">
+<!-- Task Card -->
+<div class="p-3 border border-outline-variant rounded bg-surface hover:bg-surface-container-low transition-colors cursor-pointer group relative">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-red-500 rounded-l"></div>
+<div class="flex justify-between items-start mb-1 pl-1">
+<span class="font-label-md text-[10px] text-on-surface-variant">TSK-082</span>
+<span class="px-1.5 py-0.5 rounded bg-red-100 text-red-800 font-label-md text-[9px]">High</span>
+</div>
+<div class="font-headline-sm text-[13px] leading-tight text-on-surface mb-2 pl-1">Configure AWS EKS Cluster for Prod</div>
+<div class="flex justify-between items-center pl-1">
+<div class="flex items-center gap-1">
+<div class="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700">
+<span class="material-symbols-outlined text-[12px]" data-icon="terminal">terminal</span>
+</div>
+<span class="font-body-md text-[11px] text-on-surface-variant">DevOps</span>
+</div>
+<span class="font-body-md text-[11px] text-on-surface-variant">In Progress</span>
+</div>
+</div>
+<!-- Task Card -->
+<div class="p-3 border border-outline-variant rounded bg-surface hover:bg-surface-container-low transition-colors cursor-pointer group relative">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-amber-500 rounded-l"></div>
+<div class="flex justify-between items-start mb-1 pl-1">
+<span class="font-label-md text-[10px] text-on-surface-variant">TSK-083</span>
+<span class="px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 font-label-md text-[9px]">Med</span>
+</div>
+<div class="font-headline-sm text-[13px] leading-tight text-on-surface mb-2 pl-1">Design Microservice Auth Flow</div>
+<div class="flex justify-between items-center pl-1">
+<div class="flex items-center gap-1">
+<div class="w-5 h-5 rounded-full bg-blue-100 flex items-center justify-center text-blue-700">
+<span class="material-symbols-outlined text-[12px]" data-icon="architecture">architecture</span>
+</div>
+<span class="font-body-md text-[11px] text-on-surface-variant">Architect</span>
+</div>
+<span class="font-body-md text-[11px] text-on-surface-variant">Review</span>
+</div>
+</div>
+<!-- Task Card -->
+<div class="p-3 border border-outline-variant rounded bg-surface hover:bg-surface-container-low transition-colors cursor-pointer group relative">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-slate-300 rounded-l"></div>
+<div class="flex justify-between items-start mb-1 pl-1">
+<span class="font-label-md text-[10px] text-on-surface-variant">TSK-084</span>
+<span class="px-1.5 py-0.5 rounded bg-slate-100 text-slate-800 font-label-md text-[9px]">Low</span>
+</div>
+<div class="font-headline-sm text-[13px] leading-tight text-on-surface mb-2 pl-1">Write E2E Cypress Tests</div>
+<div class="flex justify-between items-center pl-1">
+<div class="flex items-center gap-1">
+<div class="w-5 h-5 rounded-full bg-purple-100 flex items-center justify-center text-purple-700">
+<span class="material-symbols-outlined text-[12px]" data-icon="fact_check">fact_check</span>
+</div>
+<span class="font-body-md text-[11px] text-on-surface-variant">QA/QC</span>
+</div>
+<span class="font-body-md text-[11px] text-on-surface-variant">To Do</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Col: Gantt / Timeline Viz -->
+<div class="xl:col-span-2 bg-surface border border-outline-variant rounded flex flex-col overflow-hidden h-full">
+<div class="p-3 border-b border-outline-variant bg-surface-container-low flex justify-between items-center shrink-0">
+<div class="flex items-center gap-4">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Sprint Timeline</h3>
+<div class="flex bg-surface border border-outline-variant rounded overflow-hidden">
+<button class="px-3 py-1 font-label-md text-[11px] bg-secondary-container text-on-secondary-container border-r border-outline-variant">Days</button>
+<button class="px-3 py-1 font-label-md text-[11px] text-on-surface-variant hover:bg-surface-container-low">Weeks</button>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-body-md text-[11px] text-on-surface-variant flex items-center gap-1">
+<div class="w-2 h-2 rounded-full bg-blue-500"></div> Arch
+                            </span>
+<span class="font-body-md text-[11px] text-on-surface-variant flex items-center gap-1">
+<div class="w-2 h-2 rounded-full bg-emerald-500"></div> Dev
+                            </span>
+<span class="font-body-md text-[11px] text-on-surface-variant flex items-center gap-1">
+<div class="w-2 h-2 rounded-full bg-purple-500"></div> QA
+                            </span>
+</div>
+</div>
+<!-- Gantt Chart Area -->
+<div class="flex-1 overflow-auto relative p-4 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px)] bg-[size:40px_100%]">
+<!-- Timeline Header -->
+<div class="flex w-full min-w-[800px] border-b border-outline-variant pb-2 mb-4 sticky top-0 bg-surface z-10">
+<div class="w-32 shrink-0 font-label-md text-label-md text-on-surface-variant">Task</div>
+<div class="flex-1 flex justify-between px-2">
+<span class="font-label-md text-[10px] text-on-surface-variant">Mon 12</span>
+<span class="font-label-md text-[10px] text-on-surface-variant">Tue 13</span>
+<span class="font-label-md text-[10px] text-on-surface-variant">Wed 14</span>
+<span class="font-label-md text-[10px] text-on-surface-variant">Thu 15</span>
+<span class="font-label-md text-[10px] text-on-surface-variant">Fri 16</span>
+</div>
+</div>
+<!-- Gantt Rows -->
+<div class="min-w-[800px] flex flex-col gap-3 relative">
+<!-- Today Indicator Line -->
+<div class="absolute top-0 bottom-0 left-[40%] w-px bg-red-400 z-0">
+<div class="absolute -top-1 -left-1 w-2 h-2 rounded-full bg-red-400"></div>
+</div>
+<!-- Row 1 -->
+<div class="flex items-center h-8 group relative z-10">
+<div class="w-32 shrink-0 font-body-md text-[12px] truncate pr-2" title="Design Microservice Auth Flow">TSK-083: Auth Flow</div>
+<div class="flex-1 relative h-full">
+<div class="absolute left-[0%] w-[30%] h-6 top-1 bg-blue-100 border border-blue-300 rounded flex items-center px-2 cursor-pointer hover:bg-blue-200 transition-colors">
+<span class="font-label-md text-[10px] text-blue-800 truncate">Architecting</span>
+</div>
+</div>
+</div>
+<!-- Row 2 -->
+<div class="flex items-center h-8 group relative z-10">
+<div class="w-32 shrink-0 font-body-md text-[12px] truncate pr-2" title="Configure AWS EKS Cluster for Prod">TSK-082: EKS Prod</div>
+<div class="flex-1 relative h-full">
+<!-- Dependency Line -->
+<div class="absolute left-[30%] top-1/2 w-[10%] h-px bg-outline-variant"></div>
+<div class="absolute left-[40%] w-[40%] h-6 top-1 bg-emerald-100 border border-emerald-300 rounded flex items-center px-2 cursor-pointer hover:bg-emerald-200 transition-colors shadow-[0_0_8px_rgba(16,185,129,0.4)]">
+<span class="font-label-md text-[10px] text-emerald-800 truncate">Provisioning (Active)</span>
+</div>
+</div>
+</div>
+<!-- Row 3 -->
+<div class="flex items-center h-8 group relative z-10">
+<div class="w-32 shrink-0 font-body-md text-[12px] truncate pr-2" title="Write E2E Cypress Tests">TSK-084: E2E Tests</div>
+<div class="flex-1 relative h-full">
+<!-- Dependency Line -->
+<div class="absolute left-[80%] top-1/2 w-[5%] h-px bg-outline-variant"></div>
+<div class="absolute left-[85%] w-[15%] h-6 top-1 bg-purple-100 border border-purple-300 rounded flex items-center px-2 cursor-pointer hover:bg-purple-200 transition-colors opacity-60">
+<span class="font-label-md text-[10px] text-purple-800 truncate">Pending EKS</span>
+</div>
+</div>
+</div>
+<!-- Row 4 -->
+<div class="flex items-center h-8 group relative z-10 mt-4 border-t border-dashed border-outline-variant pt-4">
+<div class="w-32 shrink-0 font-body-md text-[12px] truncate pr-2 text-on-surface-variant">TSK-079: DB Migration</div>
+<div class="flex-1 relative h-full">
+<div class="absolute left-[10%] w-[20%] h-6 top-1 bg-surface-container-high border border-outline rounded flex items-center px-2">
+<span class="font-label-md text-[10px] text-on-surface-variant truncate flex items-center gap-1"><span class="material-symbols-outlined text-[12px]" data-icon="check_circle">check_circle</span> Complete</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Project Tracking - Nexus SDLC</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-secondary-container": "#5b6279",
+                        "surface-dim": "#dadada",
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-fixed": "#1a1b1f",
+                        "error": "#ba1a1a",
+                        "surface-tint": "#0059c5",
+                        "surface-container-high": "#e8e8e8",
+                        "on-tertiary-container": "#f0eef4",
+                        "primary-fixed-dim": "#aec6ff",
+                        "on-primary-fixed-variant": "#004397",
+                        "on-primary-container": "#ecefff",
+                        "inverse-primary": "#aec6ff",
+                        "secondary-container": "#d8dffa",
+                        "secondary-fixed": "#dbe2fd",
+                        "secondary": "#575e74",
+                        "surface-bright": "#f9f9f9",
+                        "on-background": "#1a1c1c",
+                        "on-tertiary-fixed-variant": "#46464b",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed-dim": "#bfc6e0",
+                        "on-surface-variant": "#424753",
+                        "outline": "#727785",
+                        "surface-container-low": "#f3f3f4",
+                        "outline-variant": "#c2c6d6",
+                        "surface-container-lowest": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed": "#001a43",
+                        "tertiary-fixed-dim": "#c7c6cb",
+                        "primary": "#0050b2",
+                        "inverse-on-surface": "#f0f1f1",
+                        "on-surface": "#1a1c1c",
+                        "background": "#f9f9f9",
+                        "inverse-surface": "#2f3131",
+                        "surface-variant": "#e2e2e2",
+                        "tertiary": "#535458",
+                        "tertiary-container": "#6c6c71",
+                        "on-secondary-fixed": "#141b2e",
+                        "on-primary": "#ffffff",
+                        "surface-container": "#eeeeee",
+                        "surface": "#f9f9f9",
+                        "surface-container-highest": "#e2e2e2",
+                        "on-secondary": "#ffffff",
+                        "primary-container": "#1868db",
+                        "tertiary-fixed": "#e3e2e7",
+                        "primary-fixed": "#d8e2ff"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    spacing: {
+                        "sm": "8px",
+                        "xs": "4px",
+                        "base": "4px",
+                        "md": "16px",
+                        "xl": "32px",
+                        "gutter": "16px",
+                        "margin": "24px",
+                        "lg": "24px"
+                    },
+                    fontFamily: {
+                        "headline-md": ["Inter", "sans-serif"],
+                        "label-md": ["Inter", "sans-serif"],
+                        "body-lg": ["Inter", "sans-serif"],
+                        "body-md": ["Inter", "sans-serif"],
+                        "code-sm": ["monospace"],
+                        "headline-xl": ["Inter", "sans-serif"],
+                        "headline-sm": ["Inter", "sans-serif"]
+                    },
+                    fontSize: {
+                        "headline-md": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "code-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "headline-xl": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "headline-sm": ["16px", { "lineHeight": "24px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface antialiased min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="bg-surface-container-lowest flex justify-between items-center h-[56px] px-6 w-full z-50 fixed top-0 border-b border-outline-variant shadow-none">
+<div class="flex items-center gap-md">
+<span class="font-headline-md text-headline-md text-on-surface tracking-tight">Nexus SDLC</span>
+</div>
+<div class="flex-1 max-w-md mx-md">
+<div class="relative group flex items-center">
+<span class="material-symbols-outlined absolute left-sm text-on-surface-variant pointer-events-none" data-icon="search">search</span>
+<input class="w-full h-8 pl-[32px] pr-sm bg-surface-container-low border border-outline-variant rounded text-body-md font-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors placeholder:text-on-surface-variant" placeholder="Search projects, agents, tasks..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<button class="bg-primary-container text-on-primary h-[32px] px-md rounded flex items-center justify-center font-label-md text-label-md hover:bg-primary transition-colors">
+                Create Project
+            </button>
+<div class="flex items-center gap-sm">
+<button aria-label="notifications" class="p-xs text-on-surface-variant hover:bg-surface-container hover:text-on-surface rounded transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button aria-label="help" class="p-xs text-on-surface-variant hover:bg-surface-container hover:text-on-surface rounded transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+<button aria-label="settings" class="p-xs text-on-surface-variant hover:bg-surface-container hover:text-on-surface rounded transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</div>
+<div class="w-8 h-8 rounded-full bg-surface-container-high border border-outline-variant overflow-hidden flex-shrink-0 ml-sm">
+<img alt="User avatar" class="w-full h-full object-cover" data-alt="professional headshot of a person looking directly at the camera with a neutral expression on a light grey background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC09xxXzKJYEKgM60oIHzL-nf5hlmE3lqFX_CF1-5gGyI8srm_VzsSZXn-xw1vcnr63tgnaYQrHDr7WmCmYvUjA_ZGvTGlOXLqxhX7yxNW1U9RUJnt8at0JVnyaKs2x9VPJc93b6OF7mDmQ4ch-vw0LVkVQt5mFrklDclfV2L4eWZ0N_eQSDjPYY33MaSa64Zk9dQGs9GchvS6o4jucuGuOC72mlXgPGzu_7svpYD0M5g0S942aoBjTtlAHS0IB0kCO1y0JsVJxMIsJ"/>
+</div>
+</div>
+</header>
+<div class="flex flex-1 pt-[56px] h-screen overflow-hidden">
+<!-- SideNavBar -->
+<nav class="bg-surface-container-low fixed left-0 top-[56px] flex flex-col h-[calc(100vh-56px)] py-4 w-64 border-r border-outline-variant shadow-none z-40 overflow-y-auto">
+<div class="px-md pb-md mb-md border-b border-outline-variant flex items-center gap-sm">
+<div class="w-10 h-10 rounded bg-primary-container flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-on-primary icon-fill" data-icon="hub">hub</span>
+</div>
+<div class="flex flex-col overflow-hidden">
+<span class="font-headline-sm text-headline-sm text-on-surface truncate">Automation Platform</span>
+<span class="font-body-md text-body-md text-on-surface-variant text-[11px] truncate">V1.2.4-stable</span>
+</div>
+</div>
+<div class="flex-1 flex flex-col gap-xs px-sm">
+<a class="flex items-center gap-sm px-sm py-2 rounded text-on-surface-variant hover:bg-surface-container-highest cursor-pointer transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface transition-colors" data-icon="add_task">add_task</span>
+<span class="font-label-md text-label-md uppercase tracking-wider group-hover:text-on-surface transition-colors">Project Intake</span>
+</a>
+<a class="flex items-center gap-sm px-sm py-2 rounded text-on-surface-variant hover:bg-surface-container-highest cursor-pointer transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface transition-colors" data-icon="smart_toy">smart_toy</span>
+<span class="font-label-md text-label-md uppercase tracking-wider group-hover:text-on-surface transition-colors">Live Agents</span>
+</a>
+<a class="flex items-center gap-sm px-sm py-2 rounded text-on-surface-variant hover:bg-surface-container-highest cursor-pointer transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface transition-colors" data-icon="folder_open">folder_open</span>
+<span class="font-label-md text-label-md uppercase tracking-wider group-hover:text-on-surface transition-colors">Artifact Hub</span>
+</a>
+<!-- Active Item: Roadmap implicitly represents Project Tracking backlog -->
+<a class="flex items-center gap-sm px-sm py-2 bg-surface-container-lowest text-primary border-l-[4px] border-primary rounded-r cursor-pointer transition-all duration-200" href="#">
+<span class="material-symbols-outlined text-primary icon-fill" data-icon="account_tree">account_tree</span>
+<span class="font-label-md text-label-md uppercase tracking-wider text-primary">Roadmap</span>
+</a>
+</div>
+<div class="mt-auto px-sm pt-md border-t border-outline-variant flex flex-col gap-xs">
+<a class="flex items-center gap-sm px-sm py-2 rounded text-on-surface-variant hover:bg-surface-container-highest cursor-pointer transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant group-hover:text-on-surface transition-colors" data-icon="api">api</span>
+<span class="font-label-md text-label-md uppercase tracking-wider group-hover:text-on-surface transition-colors">API Docs</span>
+</a>
+<a class="flex items-center gap-sm px-sm py-2 rounded text-on-surface-variant hover:bg-surface-container-highest cursor-pointer transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant group-hover:text-on-surface transition-colors" data-icon="contact_support">contact_support</span>
+<span class="font-label-md text-label-md uppercase tracking-wider group-hover:text-on-surface transition-colors">Support</span>
+</a>
+<div class="px-sm py-sm mt-sm">
+<button class="w-full bg-surface-container-lowest border border-outline text-on-surface h-[32px] rounded font-label-md text-label-md hover:bg-surface-container-highest transition-colors">
+                        Upgrade Plan
+                    </button>
+</div>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 ml-64 p-margin overflow-y-auto bg-background">
+<div class="max-w-7xl mx-auto flex flex-col gap-margin">
+<!-- Header Section -->
+<div class="flex flex-col gap-sm">
+<div class="flex justify-between items-end">
+<div>
+<div class="flex items-center gap-xs text-on-surface-variant mb-xs">
+<span class="font-body-md text-body-md text-[12px]">Project: Alpha Re-platform</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="font-body-md text-body-md text-[12px]">Sprint 42</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-on-surface">Taskmaster Backlog</h1>
+</div>
+<div class="flex gap-sm">
+<button class="flex items-center gap-xs px-sm h-[32px] bg-surface-container-lowest border border-outline-variant rounded text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[16px]" data-icon="filter_list">filter_list</span>
+                                Filter
+                            </button>
+<button class="flex items-center gap-xs px-sm h-[32px] bg-surface-container-lowest border border-outline-variant rounded text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[16px]" data-icon="group_work">group_work</span>
+                                Group by: Agent
+                            </button>
+</div>
+</div>
+</div>
+<!-- Backlog Table Container -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg overflow-hidden flex flex-col shadow-none">
+<!-- Table Header -->
+<div class="grid grid-cols-12 gap-sm px-md py-sm bg-surface-container-low border-b border-outline-variant items-center">
+<div class="col-span-1 flex items-center justify-center">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider text-[11px]">Key</span>
+</div>
+<div class="col-span-5 flex items-center">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider text-[11px]">Task Name</span>
+</div>
+<div class="col-span-2 flex items-center">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider text-[11px]">Assigned Agent</span>
+</div>
+<div class="col-span-2 flex items-center">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider text-[11px]">Status</span>
+</div>
+<div class="col-span-2 flex items-center">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider text-[11px]">Priority</span>
+</div>
+</div>
+<!-- Table Body -->
+<div class="flex flex-col divide-y divide-outline-variant">
+<!-- Row 1 -->
+<div class="grid grid-cols-12 gap-sm px-md py-sm items-center hover:bg-surface-container-lowest transition-colors cursor-pointer group">
+<div class="col-span-1 flex justify-center">
+<span class="font-code-sm text-code-sm text-on-surface-variant">NX-104</span>
+</div>
+<div class="col-span-5 flex flex-col gap-xs pr-md">
+<span class="font-body-md text-body-md text-on-surface font-medium leading-tight group-hover:text-primary transition-colors">Configure AWS ECS cluster for frontend service</span>
+<span class="font-body-md text-body-md text-on-surface-variant text-[12px] truncate">Setup IAM roles, security groups, and task definitions for the new React app.</span>
+</div>
+<div class="col-span-2 flex items-center gap-sm">
+<div class="w-6 h-6 rounded bg-primary-fixed flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-on-primary-fixed text-[14px]" data-icon="cloud">cloud</span>
+</div>
+<span class="font-body-md text-body-md text-on-surface text-[13px]">DevOps_Agent_1</span>
+</div>
+<div class="col-span-2 flex items-center">
+<span class="inline-flex items-center px-2 py-1 rounded-full bg-primary-fixed text-on-primary-fixed font-label-md text-label-md text-[10px] uppercase">
+                                    In Progress
+                                </span>
+</div>
+<div class="col-span-2 flex items-center gap-xs text-error">
+<span class="material-symbols-outlined text-[16px] icon-fill" data-icon="keyboard_double_arrow_up">keyboard_double_arrow_up</span>
+<span class="font-body-md text-body-md text-[13px]">Highest</span>
+</div>
+</div>
+<!-- Row 2 -->
+<div class="grid grid-cols-12 gap-sm px-md py-sm items-center hover:bg-surface-container-lowest transition-colors cursor-pointer group">
+<div class="col-span-1 flex justify-center">
+<span class="font-code-sm text-code-sm text-on-surface-variant">NX-108</span>
+</div>
+<div class="col-span-5 flex flex-col gap-xs pr-md">
+<span class="font-body-md text-body-md text-on-surface font-medium leading-tight group-hover:text-primary transition-colors">Migrate legacy user data script</span>
+<span class="font-body-md text-body-md text-on-surface-variant text-[12px] truncate">Write python script to ETL old postgres data to new schema.</span>
+</div>
+<div class="col-span-2 flex items-center gap-sm">
+<div class="w-6 h-6 rounded bg-secondary-fixed flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-on-secondary-fixed text-[14px]" data-icon="database">database</span>
+</div>
+<span class="font-body-md text-body-md text-on-surface text-[13px]">Data_Agent_A</span>
+</div>
+<div class="col-span-2 flex items-center">
+<span class="inline-flex items-center px-2 py-1 rounded-full bg-surface-container-highest text-on-surface font-label-md text-label-md text-[10px] uppercase">
+                                    To Do
+                                </span>
+</div>
+<div class="col-span-2 flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]" data-icon="keyboard_arrow_up">keyboard_arrow_up</span>
+<span class="font-body-md text-body-md text-[13px]">Medium</span>
+</div>
+</div>
+<!-- Row 3 -->
+<div class="grid grid-cols-12 gap-sm px-md py-sm items-center hover:bg-surface-container-lowest transition-colors cursor-pointer group">
+<div class="col-span-1 flex justify-center">
+<span class="font-code-sm text-code-sm text-on-surface-variant">NX-099</span>
+</div>
+<div class="col-span-5 flex flex-col gap-xs pr-md">
+<span class="font-body-md text-body-md text-on-surface font-medium leading-tight group-hover:text-primary transition-colors">Implement Redis caching for API endpoints</span>
+<span class="font-body-md text-body-md text-on-surface-variant text-[12px] truncate">Add caching layer to high-traffic read operations on the items controller.</span>
+</div>
+<div class="col-span-2 flex items-center gap-sm">
+<div class="w-6 h-6 rounded bg-primary-fixed flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-on-primary-fixed text-[14px]" data-icon="code">code</span>
+</div>
+<span class="font-body-md text-body-md text-on-surface text-[13px]">Backend_Agent_2</span>
+</div>
+<div class="col-span-2 flex items-center">
+<span class="inline-flex items-center px-2 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-md text-label-md text-[10px] uppercase">
+                                    Done
+                                </span>
+</div>
+<div class="col-span-2 flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]" data-icon="keyboard_arrow_down">keyboard_arrow_down</span>
+<span class="font-body-md text-body-md text-[13px]">Low</span>
+</div>
+</div>
+<!-- Row 4 -->
+<div class="grid grid-cols-12 gap-sm px-md py-sm items-center hover:bg-surface-container-lowest transition-colors cursor-pointer group">
+<div class="col-span-1 flex justify-center">
+<span class="font-code-sm text-code-sm text-on-surface-variant">NX-112</span>
+</div>
+<div class="col-span-5 flex flex-col gap-xs pr-md">
+<span class="font-body-md text-body-md text-on-surface font-medium leading-tight group-hover:text-primary transition-colors">Generate OpenAPI documentation</span>
+<span class="font-body-md text-body-md text-on-surface-variant text-[12px] truncate">Auto-generate swagger docs from updated route definitions.</span>
+</div>
+<div class="col-span-2 flex items-center gap-sm">
+<div class="w-6 h-6 rounded bg-surface-container-highest flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-on-surface text-[14px]" data-icon="edit_document">edit_document</span>
+</div>
+<span class="font-body-md text-body-md text-on-surface-variant text-[13px] italic">Unassigned</span>
+</div>
+<div class="col-span-2 flex items-center">
+<span class="inline-flex items-center px-2 py-1 rounded-full bg-surface-container-highest text-on-surface font-label-md text-label-md text-[10px] uppercase">
+                                    To Do
+                                </span>
+</div>
+<div class="col-span-2 flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]" data-icon="keyboard_arrow_up">keyboard_arrow_up</span>
+<span class="font-body-md text-body-md text-[13px]">Medium</span>
+</div>
+</div>
+</div>
+<!-- Table Footer / Pagination -->
+<div class="bg-surface-container-lowest px-md py-sm border-t border-outline-variant flex justify-between items-center text-on-surface-variant font-body-md text-body-md text-[13px]">
+<span>Showing 1-4 of 24 tasks</span>
+<div class="flex items-center gap-sm">
+<button class="p-xs rounded hover:bg-surface-container-low disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined text-[18px]" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="p-xs rounded hover:bg-surface-container-low">
+<span class="material-symbols-outlined text-[18px]" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Strategist View - DevOps Intelligence</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-high": "#e8e8e8",
+                        "secondary-container": "#d8dffa",
+                        "surface-tint": "#0059c5",
+                        "inverse-surface": "#2f3131",
+                        "on-error": "#ffffff",
+                        "outline": "#727785",
+                        "background": "#f9f9f9",
+                        "outline-variant": "#c2c6d6",
+                        "error": "#ba1a1a",
+                        "primary-fixed-dim": "#aec6ff",
+                        "tertiary-fixed-dim": "#c7c6cb",
+                        "on-primary": "#ffffff",
+                        "surface-bright": "#f9f9f9",
+                        "tertiary-fixed": "#e3e2e7",
+                        "on-tertiary-container": "#f0eef4",
+                        "on-secondary-fixed": "#141b2e",
+                        "on-surface-variant": "#424753",
+                        "on-secondary-container": "#5b6279",
+                        "primary-container": "#1868db",
+                        "primary": "#0050b2",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed-variant": "#46464b",
+                        "on-surface": "#1a1c1c",
+                        "surface-container": "#eeeeee",
+                        "surface-container-highest": "#e2e2e2",
+                        "secondary-fixed": "#dbe2fd",
+                        "on-background": "#1a1c1c",
+                        "surface-variant": "#e2e2e2",
+                        "error-container": "#ffdad6",
+                        "surface-container-low": "#f3f3f4",
+                        "surface": "#f9f9f9",
+                        "primary-fixed": "#d8e2ff",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-fixed": "#1a1b1f",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed-dim": "#bfc6e0",
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "inverse-on-surface": "#f0f1f1",
+                        "surface-dim": "#dadada",
+                        "on-primary-fixed": "#001a43",
+                        "tertiary": "#535458",
+                        "tertiary-container": "#6c6c71",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-container": "#ecefff",
+                        "secondary": "#575e74",
+                        "inverse-primary": "#aec6ff",
+                        "on-primary-fixed-variant": "#004397"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin": "24px",
+                        "gutter": "16px",
+                        "lg": "24px",
+                        "xl": "32px",
+                        "sm": "8px",
+                        "base": "4px",
+                        "md": "16px",
+                        "xs": "4px"
+                    },
+                    "fontFamily": {
+                        "code-sm": ["monospace"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "code-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-xl": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "headline-sm": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-surface text-on-surface font-body-md text-body-md antialiased min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<nav class="bg-white dark:bg-slate-950 font-['Inter'] text-sm tracking-tight docked full-width top-0 z-50 border-slate-200 dark:border-slate-800 flat no shadows flex justify-between items-center h-12 px-6 w-full sticky top-0 hidden md:flex">
+<div class="flex items-center gap-4">
+<span class="text-lg font-bold text-slate-900 dark:text-white">DevOps Intelligence</span>
+</div>
+<div class="flex items-center gap-4 text-blue-600 dark:text-blue-400">
+<button class="hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors cursor-pointer active:opacity-80 transition-opacity p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors cursor-pointer active:opacity-80 transition-opacity p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</button>
+<button class="hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors cursor-pointer active:opacity-80 transition-opacity p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<img alt="Administrator Avatar" class="w-8 h-8 rounded-full border border-outline-variant cursor-pointer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXibvfwqLFa_ADHvk_fZlrVpQqTGxuOPzGahie7xmU7IMKtGZPq4hdkhrTumPH2QFNgHWt0t_vwUDNNsRVMUI6zsgWKffhzAET7r8vJHRP7bVLUFV1W2DaqeDANhVCH0zvhxOGxPZL4X--xId5HmY0HoXrBO33TzmnYOxtWF4sPHvB4bYM0OSzu4Bbo6Ny-DpMNfwdyAiZBr3UPufjt544Bz66nVaqfRTv5MEn14bRlECgmXJ1YstB52My0mkdWe4u_11RrW78ujaO"/>
+</div>
+</nav>
+<div class="flex flex-1 overflow-hidden">
+<!-- SideNavBar -->
+<aside class="bg-slate-50 dark:bg-slate-900 font-['Inter'] text-[13px] leading-tight docked left-0 h-screen w-64 border-r border-slate-200 dark:border-slate-800 flat no shadows fixed left-0 top-12 bottom-0 flex flex-col p-4 gap-2 hidden md:flex z-40">
+<div class="mb-6 px-2">
+<h2 class="text-blue-700 dark:text-blue-500 font-black text-headline-sm">Automation Hub</h2>
+<p class="text-on-surface-variant text-label-md">Enterprise Tier</p>
+</div>
+<nav class="flex-1 flex flex-col gap-1">
+<!-- Active Item -->
+<a class="bg-white dark:bg-slate-800 text-blue-600 dark:text-blue-400 font-semibold border border-slate-200 dark:border-slate-700 rounded-md transition-all duration-150 ease-in-out flex items-center gap-3 px-3 py-2" href="#">
+<span class="material-symbols-outlined" data-icon="psychology">psychology</span>
+                    Strategist
+                </a>
+<!-- Inactive Items -->
+<a class="text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all duration-150 ease-in-out flex items-center gap-3 px-3 py-2 rounded-md" href="#">
+<span class="material-symbols-outlined" data-icon="architecture">architecture</span>
+                    Architect
+                </a>
+<a class="text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all duration-150 ease-in-out flex items-center gap-3 px-3 py-2 rounded-md" href="#">
+<span class="material-symbols-outlined" data-icon="fact_check">fact_check</span>
+                    QA/QC
+                </a>
+<a class="text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all duration-150 ease-in-out flex items-center gap-3 px-3 py-2 rounded-md" href="#">
+<span class="material-symbols-outlined" data-icon="terminal">terminal</span>
+                    DevOps
+                </a>
+<a class="text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all duration-150 ease-in-out flex items-center gap-3 px-3 py-2 rounded-md" href="#">
+<span class="material-symbols-outlined" data-icon="assignment">assignment</span>
+                    Taskmaster
+                </a>
+</nav>
+<div class="mt-auto flex flex-col gap-2 pt-4 border-t border-outline-variant">
+<button class="bg-primary-container text-on-primary-container hover:opacity-90 font-label-md py-2 px-4 rounded transition-opacity w-full text-center">
+                    Deploy Pipeline
+                </button>
+<div class="flex flex-col gap-1 mt-2">
+<a class="text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all duration-150 ease-in-out flex items-center gap-3 px-3 py-2 rounded-md" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="menu_book">menu_book</span>
+                        Docs
+                    </a>
+<a class="text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all duration-150 ease-in-out flex items-center gap-3 px-3 py-2 rounded-md" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="contact_support">contact_support</span>
+                        Support
+                    </a>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-64 p-margin md:p-xl overflow-y-auto">
+<!-- Page Header -->
+<header class="mb-lg flex justify-between items-end">
+<div>
+<h1 class="font-headline-xl text-headline-xl text-on-surface mb-xs">Strategist View</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Roadmap planning, feature prioritization, and methodology oversight.</p>
+</div>
+<div class="flex gap-sm">
+<button class="bg-surface border border-outline text-on-surface font-label-md py-sm px-md rounded-DEFAULT hover:bg-surface-container-low transition-colors flex items-center gap-2 h-10">
+<span class="material-symbols-outlined text-[18px]">filter_list</span> Filter
+                    </button>
+<button class="bg-primary-container text-on-primary font-label-md py-sm px-md rounded-DEFAULT hover:opacity-90 transition-opacity flex items-center gap-2 h-10">
+<span class="material-symbols-outlined text-[18px]">add</span> New Epic
+                    </button>
+</div>
+</header>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Methodology Stats (Span 4) -->
+<section class="col-span-1 md:col-span-4 bg-surface-container-lowest border border-outline-variant rounded-xl p-md flex flex-col gap-md">
+<h3 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">donut_large</span> Sprint Health
+                    </h3>
+<div class="flex items-end gap-md">
+<div class="flex-1">
+<p class="text-on-surface-variant text-label-md uppercase mb-1">Velocity</p>
+<p class="font-headline-md text-headline-md">42 pts <span class="text-green-600 text-body-md font-normal ml-2">↑ 5%</span></p>
+</div>
+<div class="flex-1">
+<p class="text-on-surface-variant text-label-md uppercase mb-1">Completion</p>
+<p class="font-headline-md text-headline-md">88%</p>
+</div>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden mt-sm">
+<div class="bg-primary-container h-full" style="width: 88%"></div>
+</div>
+<div class="flex justify-between text-label-md text-on-surface-variant mt-xs">
+<span>Sprint 42</span>
+<span>3 days remaining</span>
+</div>
+</section>
+<!-- Priority Focus (Span 8) -->
+<section class="col-span-1 md:col-span-8 bg-surface-container-lowest border border-outline-variant rounded-xl p-md">
+<div class="flex justify-between items-center mb-md">
+<h3 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">flag</span> High Priority Features
+                        </h3>
+<a class="text-primary-container text-label-md hover:underline" href="#">View Roadmap →</a>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant">
+<th class="py-2 px-3 font-label-md text-label-md text-on-surface-variant uppercase w-1/2">Epic / Feature</th>
+<th class="py-2 px-3 font-label-md text-label-md text-on-surface-variant uppercase">Status</th>
+<th class="py-2 px-3 font-label-md text-label-md text-on-surface-variant uppercase">Priority</th>
+<th class="py-2 px-3 font-label-md text-label-md text-on-surface-variant uppercase text-right">Progress</th>
+</tr>
+</thead>
+<tbody>
+<tr class="border-b border-surface-container hover:bg-surface-container-lowest/50 transition-colors">
+<td class="py-3 px-3">
+<p class="font-body-md text-body-md font-semibold">User Authentication V2</p>
+<p class="font-code-sm text-code-sm text-on-surface-variant">STR-142 • Auth Domain</p>
+</td>
+<td class="py-3 px-3">
+<span class="bg-secondary-container text-on-secondary-container px-2 py-1 rounded-full text-[11px] font-semibold tracking-wide">In Progress</span>
+</td>
+<td class="py-3 px-3">
+<div class="flex items-center gap-1 text-red-600">
+<span class="material-symbols-outlined text-[16px]" data-weight="fill">keyboard_double_arrow_up</span>
+<span class="text-label-md">Critical</span>
+</div>
+</td>
+<td class="py-3 px-3 text-right">
+<div class="flex items-center justify-end gap-2">
+<span class="text-label-md">65%</span>
+<div class="w-16 bg-surface-container h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full" style="width: 65%"></div>
+</div>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-lowest/50 transition-colors">
+<td class="py-3 px-3">
+<p class="font-body-md text-body-md font-semibold">API Rate Limiting</p>
+<p class="font-code-sm text-code-sm text-on-surface-variant">STR-189 • Infrastructure</p>
+</td>
+<td class="py-3 px-3">
+<span class="bg-surface-container-high text-on-surface px-2 py-1 rounded-full text-[11px] font-semibold tracking-wide border border-outline-variant">To Do</span>
+</td>
+<td class="py-3 px-3">
+<div class="flex items-center gap-1 text-orange-600">
+<span class="material-symbols-outlined text-[16px]">keyboard_arrow_up</span>
+<span class="text-label-md">High</span>
+</div>
+</td>
+<td class="py-3 px-3 text-right">
+<div class="flex items-center justify-end gap-2">
+<span class="text-label-md">0%</span>
+<div class="w-16 bg-surface-container h-1.5 rounded-full overflow-hidden">
+<div class="bg-surface-container-highest h-full" style="width: 0%"></div>
+</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Kanban Preview (Span 12) -->
+<section class="col-span-1 md:col-span-12 mt-md">
+<div class="flex justify-between items-center mb-md">
+<h3 class="font-headline-md text-headline-md text-on-surface">Active Sprint Board</h3>
+<div class="flex gap-2">
+<span class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container font-label-md text-xs border border-outline-variant">JW</span>
+<span class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed font-label-md text-xs border border-outline-variant">AS</span>
+<span class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface-variant font-label-md text-xs border border-outline-variant border-dashed">+3</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- To Do Column -->
+<div class="bg-surface-container-low rounded-xl p-md flex flex-col gap-sm border border-outline-variant/50">
+<div class="flex justify-between items-center mb-xs">
+<h4 class="font-label-md text-label-md text-on-surface uppercase">To Do <span class="text-on-surface-variant font-normal ml-1">(4)</span></h4>
+</div>
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-3 hover:shadow-[0_4px_12px_rgba(0,0,0,0.05)] transition-shadow cursor-grab">
+<div class="flex justify-between items-start mb-2">
+<span class="font-code-sm text-[11px] text-on-surface-variant">TSK-401</span>
+<span class="w-2 h-2 rounded-full bg-orange-500"></span>
+</div>
+<p class="font-body-md text-body-md text-on-surface leading-tight mb-3">Update dependency versions for core microservices</p>
+<div class="flex justify-between items-center mt-auto">
+<span class="bg-surface-container px-2 py-0.5 rounded text-[10px] font-label-md text-on-surface-variant">Maintenance</span>
+<span class="w-6 h-6 rounded-full bg-surface-container-highest flex items-center justify-center text-[10px] font-label-md">2</span>
+</div>
+</div>
+</div>
+<!-- In Progress Column -->
+<div class="bg-surface-container-low rounded-xl p-md flex flex-col gap-sm border border-outline-variant/50">
+<div class="flex justify-between items-center mb-xs">
+<h4 class="font-label-md text-label-md text-on-surface uppercase">In Progress <span class="text-on-surface-variant font-normal ml-1">(2)</span></h4>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest border border-primary-fixed-dim rounded-lg p-3 shadow-[0_2px_8px_rgba(24,104,219,0.08)] cursor-grab">
+<div class="flex justify-between items-start mb-2">
+<span class="font-code-sm text-[11px] text-primary">TSK-398</span>
+<span class="w-2 h-2 rounded-full bg-red-500"></span>
+</div>
+<p class="font-body-md text-body-md text-on-surface leading-tight mb-3">Implement OAuth2 flow for third-party integrations</p>
+<div class="flex justify-between items-center mt-auto">
+<span class="bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded text-[10px] font-label-md">Auth</span>
+<span class="w-6 h-6 rounded-full bg-primary-fixed flex items-center justify-center text-[10px] font-label-md text-on-primary-fixed">5</span>
+</div>
+</div>
+</div>
+<!-- Done Column -->
+<div class="bg-surface-container-low rounded-xl p-md flex flex-col gap-sm border border-outline-variant/50 opacity-80">
+<div class="flex justify-between items-center mb-xs">
+<h4 class="font-label-md text-label-md text-on-surface uppercase">Done <span class="text-on-surface-variant font-normal ml-1">(8)</span></h4>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-3 cursor-pointer">
+<div class="flex justify-between items-start mb-2">
+<span class="font-code-sm text-[11px] text-on-surface-variant line-through">TSK-395</span>
+<span class="material-symbols-outlined text-[14px] text-green-600">check_circle</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-tight mb-3">Database indexing optimization for users table</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+</div>
+</body></html>

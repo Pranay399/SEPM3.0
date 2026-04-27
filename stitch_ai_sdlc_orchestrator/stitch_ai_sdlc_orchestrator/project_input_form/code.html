@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Project Intake - Nexus SDLC</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-container": "#5b6279",
+                        "surface-dim": "#dadada",
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-fixed": "#1a1b1f",
+                        "error": "#ba1a1a",
+                        "surface-tint": "#0059c5",
+                        "surface-container-high": "#e8e8e8",
+                        "on-tertiary-container": "#f0eef4",
+                        "primary-fixed-dim": "#aec6ff",
+                        "on-primary-fixed-variant": "#004397",
+                        "on-primary-container": "#ecefff",
+                        "inverse-primary": "#aec6ff",
+                        "secondary-container": "#d8dffa",
+                        "secondary-fixed": "#dbe2fd",
+                        "secondary": "#575e74",
+                        "surface-bright": "#f9f9f9",
+                        "on-background": "#1a1c1c",
+                        "on-tertiary-fixed-variant": "#46464b",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed-dim": "#bfc6e0",
+                        "on-surface-variant": "#424753",
+                        "outline": "#727785",
+                        "surface-container-low": "#f3f3f4",
+                        "outline-variant": "#c2c6d6",
+                        "surface-container-lowest": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed": "#001a43",
+                        "tertiary-fixed-dim": "#c7c6cb",
+                        "primary": "#0050b2",
+                        "inverse-on-surface": "#f0f1f1",
+                        "on-surface": "#1a1c1c",
+                        "background": "#f9f9f9",
+                        "inverse-surface": "#2f3131",
+                        "surface-variant": "#e2e2e2",
+                        "tertiary": "#535458",
+                        "tertiary-container": "#6c6c71",
+                        "on-secondary-fixed": "#141b2e",
+                        "on-primary": "#ffffff",
+                        "surface-container": "#eeeeee",
+                        "surface": "#f9f9f9",
+                        "surface-container-highest": "#e2e2e2",
+                        "on-secondary": "#ffffff",
+                        "primary-container": "#1868db",
+                        "tertiary-fixed": "#e3e2e7",
+                        "primary-fixed": "#d8e2ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "sm": "8px",
+                        "xs": "4px",
+                        "base": "4px",
+                        "md": "16px",
+                        "xl": "32px",
+                        "gutter": "16px",
+                        "margin": "24px",
+                        "lg": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "code-sm": ["monospace"],
+                        "headline-xl": ["Inter"],
+                        "headline-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "code-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "headline-xl": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "headline-sm": ["16px", { "lineHeight": "24px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined[data-weight="fill"] {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md antialiased min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="bg-white dark:bg-slate-900 font-inter text-sm antialiased docked full-width top-0 border-b border-slate-200 dark:border-slate-800 shadow-none flex justify-between items-center h-14 px-6 w-full z-50 fixed">
+<div class="flex items-center gap-md">
+<span class="text-lg font-bold text-slate-900 dark:text-white tracking-tight">Nexus SDLC</span>
+<div class="hidden md:flex items-center bg-surface-container-low border border-outline-variant rounded-DEFAULT px-3 py-1.5 focus-within:border-primary focus-within:ring-1 focus-within:ring-primary ml-xl">
+<span class="material-symbols-outlined text-outline mr-2 text-lg">search</span>
+<input class="bg-transparent border-none outline-none text-on-surface placeholder:text-outline w-64 text-body-md font-body-md p-0 focus:ring-0" placeholder="Search projects..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-sm">
+<button class="bg-primary text-on-primary hover:bg-primary-container px-4 py-1.5 rounded-DEFAULT font-label-md text-label-md active:scale-95 duration-150 transition-colors">
+                Create Project
+            </button>
+<div class="w-px h-6 bg-outline-variant mx-2"></div>
+<button class="p-2 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors rounded-full active:scale-95 duration-150 flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors rounded-full active:scale-95 duration-150 flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+<button class="p-2 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors rounded-full active:scale-95 duration-150 flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<img alt="User avatar" class="w-8 h-8 rounded-full border border-outline-variant ml-2 object-cover" data-alt="Close up portrait of a professional man wearing a collared shirt, neutral background, soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsfRGs4JDcZ9id--QtaUnC-oxymp4zJV7R75oqRD1n2MEEtATih9Bz8R9AdP4kTp3YnjO6qXci8UI4lYpwPLp8__zFOT0f90HCXeFT7AGvhXheNgz-y3W9oNLj1xIDttFX1Vh08LKWc4hqKRz8MNQ8AfWuA6HTm3leKg0lSVrdMgBybDmWevy4AsLlNyjYZmpvD1VLzIU-gPblBgp7_XxACulZecH5f-cSIYTJ2jdLziNH1o0wnYLn9_AvBDMpH_ZTHN-WaUBgaQHS"/>
+</div>
+</header>
+<div class="flex flex-1 pt-14 h-screen overflow-hidden">
+<!-- SideNavBar -->
+<aside class="bg-slate-50 dark:bg-slate-950 font-inter text-xs font-medium uppercase tracking-wider docked left-0 h-full w-64 border-r border-slate-200 dark:border-slate-800 shadow-none fixed left-0 top-14 flex flex-col h-[calc(100vh-3.5rem)] py-4 z-40">
+<div class="px-6 mb-6">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-8 h-8 rounded-DEFAULT bg-primary-container text-on-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-sm">workspace_premium</span>
+</div>
+<div>
+<h2 class="text-sm font-black text-blue-600 dark:text-blue-400 normal-case tracking-normal">Automation Platform</h2>
+<p class="text-slate-500 dark:text-slate-400 text-[10px] normal-case tracking-normal">V1.2.4-stable</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 flex flex-col gap-1 px-3">
+<a class="bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 border-l-4 border-blue-600 flex items-center gap-3 px-3 py-2 cursor-pointer transition-all duration-200" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="add_task">add_task</span>
+<span>Project Intake</span>
+</a>
+<a class="text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 hover:translate-x-1 transition-transform border-l-4 border-transparent flex items-center gap-3 px-3 py-2 cursor-pointer duration-200" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="smart_toy">smart_toy</span>
+<span>Live Agents</span>
+</a>
+<a class="text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 hover:translate-x-1 transition-transform border-l-4 border-transparent flex items-center gap-3 px-3 py-2 cursor-pointer duration-200" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="folder_open">folder_open</span>
+<span>Artifact Hub</span>
+</a>
+<a class="text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 hover:translate-x-1 transition-transform border-l-4 border-transparent flex items-center gap-3 px-3 py-2 cursor-pointer duration-200" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="account_tree">account_tree</span>
+<span>Roadmap</span>
+</a>
+</nav>
+<div class="px-6 mt-auto">
+<button class="w-full bg-surface text-on-surface border border-outline-variant hover:bg-surface-container-high py-2 rounded-DEFAULT mb-4 cursor-pointer transition-all duration-200 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">upgrade</span>
+<span class="normal-case tracking-normal">Upgrade Plan</span>
+</button>
+</div>
+<div class="mt-auto px-3 border-t border-slate-200 dark:border-slate-800 pt-4">
+<a class="text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 hover:translate-x-1 transition-transform border-l-4 border-transparent flex items-center gap-3 px-3 py-2 cursor-pointer duration-200" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="api">api</span>
+<span>API Docs</span>
+</a>
+<a class="text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 hover:translate-x-1 transition-transform border-l-4 border-transparent flex items-center gap-3 px-3 py-2 cursor-pointer duration-200" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="contact_support">contact_support</span>
+<span>Support</span>
+</a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 ml-64 overflow-y-auto bg-background p-margin">
+<div class="max-w-[800px] mx-auto">
+<div class="mb-lg">
+<div class="flex items-center gap-2 text-outline mb-2">
+<span class="font-body-md text-body-md">Projects</span>
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+<span class="font-body-md text-body-md">New Intake</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-on-background">Initialize New Project</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2 max-w-2xl">
+                        Define the core parameters, problem space, and intended audience for your new initiative. This information will be used to generate the initial artifact hub and agent workspaces.
+                    </p>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-xl shadow-sm">
+<form class="flex flex-col gap-lg">
+<!-- Project Name -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface flex items-center gap-1" for="projectName">
+                                Project Name
+                                <span class="text-error">*</span>
+</label>
+<input class="w-full bg-surface-bright border border-outline-variant rounded-DEFAULT px-md py-2.5 font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors" id="projectName" name="projectName" placeholder="e.g., Nexus Payment Gateway Revamp" type="text"/>
+<span class="font-body-md text-[12px] text-outline mt-1">Keep it concise and descriptive. This will be used for repository naming.</span>
+</div>
+<!-- Idea / Problem Statement -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface flex items-center gap-1" for="problemStatement">
+                                Idea / Problem Statement
+                                <span class="text-error">*</span>
+</label>
+<textarea class="w-full bg-surface-bright border border-outline-variant rounded-DEFAULT px-md py-2.5 font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors resize-y" id="problemStatement" name="problemStatement" placeholder="Describe the current pain points or the opportunity this project addresses..." rows="5"></textarea>
+<div class="flex justify-between items-center mt-1">
+<span class="font-body-md text-[12px] text-outline">Markdown is supported.</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+<!-- Target Audience -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface" for="targetAudience">Target Audience</label>
+<div class="relative">
+<select class="w-full bg-surface-bright border border-outline-variant rounded-DEFAULT px-md py-2.5 font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors appearance-none pr-10" id="targetAudience" name="targetAudience">
+<option disabled="" selected="" value="">Select primary audience...</option>
+<option value="internal_eng">Internal Engineering</option>
+<option value="external_b2b">External B2B Clients</option>
+<option value="external_b2c">End Consumers (B2C)</option>
+<option value="internal_ops">Operations / Support</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none">expand_more</span>
+</div>
+</div>
+<!-- Initial Complexity Estimate -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface" for="complexity">Estimated Complexity</label>
+<div class="relative">
+<select class="w-full bg-surface-bright border border-outline-variant rounded-DEFAULT px-md py-2.5 font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors appearance-none pr-10" id="complexity" name="complexity">
+<option value="low">Low (1-2 Sprints)</option>
+<option selected="" value="medium">Medium (1 Quarter)</option>
+<option value="high">High (Multi-Quarter)</option>
+<option value="epic">Epic / Transformational</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Primary Goals -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface" for="primaryGoals">Primary Goals &amp; Success Metrics</label>
+<textarea class="w-full bg-surface-bright border border-outline-variant rounded-DEFAULT px-md py-2.5 font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors resize-y" id="primaryGoals" name="primaryGoals" placeholder="What does success look like? (e.g., Reduce latency by 20%, Increase conversion by 5%)" rows="3"></textarea>
+</div>
+<hr class="border-t border-outline-variant my-md"/>
+<!-- Actions -->
+<div class="flex items-center justify-end gap-md">
+<button class="px-6 py-2 rounded-DEFAULT font-label-md text-label-md text-on-surface bg-transparent border border-outline hover:bg-surface-container-high transition-colors" type="button">
+                                Cancel
+                            </button>
+<button class="px-6 py-2 rounded-DEFAULT font-label-md text-label-md text-on-primary bg-primary hover:bg-primary-container transition-colors flex items-center gap-2" type="submit">
+<span>Create Project Draft</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</form>
+</div>
+<div class="mt-8 text-center">
+<p class="font-body-md text-sm text-outline flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-sm">info</span>
+                        Drafts are saved automatically to your workspace.
+                    </p>
+</div>
+</div>
+</main>
+</div>
+</body></html>

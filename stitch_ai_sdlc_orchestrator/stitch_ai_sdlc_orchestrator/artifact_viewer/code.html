@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nexus SDLC - Artifact Viewer</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-container": "#5b6279",
+                        "surface-dim": "#dadada",
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-fixed": "#1a1b1f",
+                        "error": "#ba1a1a",
+                        "surface-tint": "#0059c5",
+                        "surface-container-high": "#e8e8e8",
+                        "on-tertiary-container": "#f0eef4",
+                        "primary-fixed-dim": "#aec6ff",
+                        "on-primary-fixed-variant": "#004397",
+                        "on-primary-container": "#ecefff",
+                        "inverse-primary": "#aec6ff",
+                        "secondary-container": "#d8dffa",
+                        "secondary-fixed": "#dbe2fd",
+                        "secondary": "#575e74",
+                        "surface-bright": "#f9f9f9",
+                        "on-background": "#1a1c1c",
+                        "on-tertiary-fixed-variant": "#46464b",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed-dim": "#bfc6e0",
+                        "on-surface-variant": "#424753",
+                        "outline": "#727785",
+                        "surface-container-low": "#f3f3f4",
+                        "outline-variant": "#c2c6d6",
+                        "surface-container-lowest": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed": "#001a43",
+                        "tertiary-fixed-dim": "#c7c6cb",
+                        "primary": "#0050b2",
+                        "inverse-on-surface": "#f0f1f1",
+                        "on-surface": "#1a1c1c",
+                        "background": "#f9f9f9",
+                        "inverse-surface": "#2f3131",
+                        "surface-variant": "#e2e2e2",
+                        "tertiary": "#535458",
+                        "tertiary-container": "#6c6c71",
+                        "on-secondary-fixed": "#141b2e",
+                        "on-primary": "#ffffff",
+                        "surface-container": "#eeeeee",
+                        "surface": "#f9f9f9",
+                        "surface-container-highest": "#e2e2e2",
+                        "on-secondary": "#ffffff",
+                        "primary-container": "#1868db",
+                        "tertiary-fixed": "#e3e2e7",
+                        "primary-fixed": "#d8e2ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "sm": "8px",
+                        "xs": "4px",
+                        "base": "4px",
+                        "md": "16px",
+                        "xl": "32px",
+                        "gutter": "16px",
+                        "margin": "24px",
+                        "lg": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "code-sm": ["monospace"],
+                        "headline-xl": ["Inter"],
+                        "headline-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "code-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "headline-xl": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "headline-sm": ["16px", { "lineHeight": "24px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: theme('colors.background'); color: theme('colors.on-background'); margin: 0; padding: 0; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .icon-fill { font-variation-settings: 'FILL' 1; }
+        
+        /* Custom scrollbar for inner areas */
+        .custom-scroll::-webkit-scrollbar { width: 8px; height: 8px; }
+        .custom-scroll::-webkit-scrollbar-track { background: transparent; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: theme('colors.surface-variant'); border-radius: 4px; }
+        .custom-scroll::-webkit-scrollbar-thumb:hover { background: theme('colors.outline-variant'); }
+    </style>
+</head>
+<body class="font-body-md text-body-md overflow-hidden h-screen flex flex-col">
+<!-- TopNavBar (Shared Component) -->
+<header class="bg-white dark:bg-slate-900 flex justify-between items-center h-14 px-6 w-full z-50 fixed top-0 border-b border-slate-200 dark:border-slate-800 shadow-none font-inter text-sm antialiased">
+<div class="flex items-center gap-md">
+<span class="text-lg font-bold text-slate-900 dark:text-white tracking-tight">Nexus SDLC</span>
+<div class="relative ml-lg hidden md:block w-64">
+<span class="material-symbols-outlined absolute left-2 top-1/2 -translate-y-1/2 text-slate-400" style="font-size: 20px;">search</span>
+<input class="w-full h-8 pl-9 pr-3 bg-slate-50 border border-slate-200 rounded text-sm focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600" placeholder="Search..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="bg-blue-600 text-white h-8 px-4 rounded text-sm font-medium hover:bg-blue-700 transition-colors">Create Project</button>
+<div class="flex items-center gap-2 border-l border-slate-200 pl-4">
+<button class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors p-1.5 rounded active:scale-95 duration-150 flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-size: 20px;">notifications</span>
+</button>
+<button class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors p-1.5 rounded active:scale-95 duration-150 flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-size: 20px;">help</span>
+</button>
+<button class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors p-1.5 rounded active:scale-95 duration-150 flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-size: 20px;">settings</span>
+</button>
+</div>
+<img alt="User avatar" class="w-8 h-8 rounded-full border border-slate-200 object-cover cursor-pointer active:scale-95 duration-150" data-alt="Professional headshot of a user against a neutral grey background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_gdQFlVoSmcvYp5MZN6I6bAxQUKM5PReIME93OcMLkKpgctxqNFCUGhFoZzdIwLI6a0op7pCzhxQsIvdiZg0eWeWALGZoymY5DOLw9de_9-3gNXy5paHijmp4-ktMjvX_5WO7HeSDJkQXZ8LR5auW8gu5TjU2PPWEsPu1wybZhPaxDHKOvXwFgah6yDq6eAi8HUA-HIK-d03esyCikbvo7keJuNd_So2JPeiHXlA76KaDXTRdWCCF9O3KR5afkIGRytaiDzN6N59J"/>
+</div>
+</header>
+<!-- Main Layout Container -->
+<div class="flex flex-1 mt-14 overflow-hidden">
+<!-- SideNavBar (Shared Component) -->
+<nav class="bg-slate-50 dark:bg-slate-950 flex flex-col h-[calc(100vh-3.5rem)] py-4 w-64 border-r border-slate-200 dark:border-slate-800 shadow-none font-inter text-xs font-medium uppercase tracking-wider z-40 shrink-0">
+<div class="px-6 mb-6 flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-blue-100 text-blue-600 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined icon-fill">view_cozy</span>
+</div>
+<div>
+<div class="text-sm font-black text-blue-600 dark:text-blue-400 normal-case tracking-normal">Automation Platform</div>
+<div class="text-[10px] text-slate-500 dark:text-slate-400 normal-case">V1.2.4-stable</div>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto custom-scroll px-3 space-y-1">
+<!-- Inactive Tab 1 -->
+<a class="flex items-center gap-3 px-3 py-2 rounded text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 hover:translate-x-1 transition-transform cursor-pointer transition-all duration-200" href="#">
+<span class="material-symbols-outlined" style="font-size: 18px;">add_task</span>
+<span>Project Intake</span>
+</a>
+<!-- Inactive Tab 2 -->
+<a class="flex items-center gap-3 px-3 py-2 rounded text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 hover:translate-x-1 transition-transform cursor-pointer transition-all duration-200" href="#">
+<span class="material-symbols-outlined" style="font-size: 18px;">smart_toy</span>
+<span>Live Agents</span>
+</a>
+<!-- Active Tab 3: Artifact Hub (Matching intent) -->
+<a class="flex items-center gap-3 px-3 py-2 rounded bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 border-l-4 border-blue-600 cursor-pointer transition-all duration-200" href="#">
+<span class="material-symbols-outlined icon-fill" style="font-size: 18px;">folder_open</span>
+<span>Artifact Hub</span>
+</a>
+<!-- Inactive Tab 4 -->
+<a class="flex items-center gap-3 px-3 py-2 rounded text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 hover:translate-x-1 transition-transform cursor-pointer transition-all duration-200" href="#">
+<span class="material-symbols-outlined" style="font-size: 18px;">account_tree</span>
+<span>Roadmap</span>
+</a>
+</div>
+<div class="px-3 mt-auto space-y-1 pt-4 border-t border-slate-200 dark:border-slate-800">
+<a class="flex items-center gap-3 px-3 py-2 rounded text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 hover:translate-x-1 transition-transform cursor-pointer transition-all duration-200" href="#">
+<span class="material-symbols-outlined" style="font-size: 18px;">api</span>
+<span>API Docs</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 hover:translate-x-1 transition-transform cursor-pointer transition-all duration-200" href="#">
+<span class="material-symbols-outlined" style="font-size: 18px;">contact_support</span>
+<span>Support</span>
+</a>
+<div class="px-3 pt-4 pb-2">
+<button class="w-full bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 border border-slate-300 dark:border-slate-700 py-1.5 rounded text-xs font-bold active:scale-95 transition-all">
+                        Upgrade Plan
+                    </button>
+</div>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 flex overflow-hidden bg-background">
+<!-- File Explorer Sidebar -->
+<aside class="w-72 bg-surface border-r border-outline-variant flex flex-col shrink-0">
+<div class="p-md border-b border-outline-variant flex justify-between items-center bg-surface-container-low">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Files</h2>
+<button class="text-on-surface-variant hover:bg-surface-variant p-1 rounded-DEFAULT transition-colors">
+<span class="material-symbols-outlined" style="font-size: 20px;">filter_list</span>
+</button>
+</div>
+<!-- Tree View -->
+<div class="flex-1 overflow-y-auto custom-scroll p-sm space-y-[2px]">
+<!-- Folder Group -->
+<div class="mb-sm">
+<div class="flex items-center gap-xs p-xs text-on-surface-variant cursor-pointer hover:bg-surface-variant rounded-DEFAULT">
+<span class="material-symbols-outlined" style="font-size: 16px;">arrow_drop_down</span>
+<span class="material-symbols-outlined icon-fill text-primary" style="font-size: 18px;">folder</span>
+<span class="font-label-md text-label-md text-on-surface tracking-normal font-medium">Requirements</span>
+</div>
+<div class="pl-md ml-xs border-l border-outline-variant mt-[2px] space-y-[2px]">
+<!-- Active File -->
+<div class="flex items-center gap-sm p-xs pl-sm bg-secondary-container text-on-secondary-container rounded-DEFAULT cursor-pointer group">
+<span class="material-symbols-outlined text-primary" style="font-size: 18px;">description</span>
+<span class="font-body-md text-body-md text-on-surface font-medium truncate">Software Requirements Specification (SRS)</span>
+</div>
+<div class="flex items-center gap-sm p-xs pl-sm hover:bg-surface-variant text-on-surface-variant rounded-DEFAULT cursor-pointer group transition-colors">
+<span class="material-symbols-outlined text-outline" style="font-size: 18px;">checklist</span>
+<span class="font-body-md text-body-md truncate">Feature Backlog mapping</span>
+</div>
+</div>
+</div>
+<!-- Folder Group -->
+<div class="mb-sm">
+<div class="flex items-center gap-xs p-xs text-on-surface-variant cursor-pointer hover:bg-surface-variant rounded-DEFAULT">
+<span class="material-symbols-outlined" style="font-size: 16px;">arrow_drop_down</span>
+<span class="material-symbols-outlined icon-fill text-primary" style="font-size: 18px;">folder</span>
+<span class="font-label-md text-label-md text-on-surface tracking-normal font-medium">Architecture</span>
+</div>
+<div class="pl-md ml-xs border-l border-outline-variant mt-[2px] space-y-[2px]">
+<div class="flex items-center gap-sm p-xs pl-sm hover:bg-surface-variant text-on-surface-variant rounded-DEFAULT cursor-pointer group transition-colors">
+<span class="material-symbols-outlined text-outline" style="font-size: 18px;">architecture</span>
+<span class="font-body-md text-body-md truncate">System Architecture Document</span>
+</div>
+<div class="flex items-center gap-sm p-xs pl-sm hover:bg-surface-variant text-on-surface-variant rounded-DEFAULT cursor-pointer group transition-colors">
+<span class="material-symbols-outlined text-outline" style="font-size: 18px;">account_tree</span>
+<span class="font-body-md text-body-md truncate">UML Diagrams</span>
+</div>
+</div>
+</div>
+<!-- Folder Group -->
+<div class="mb-sm">
+<div class="flex items-center gap-xs p-xs text-on-surface-variant cursor-pointer hover:bg-surface-variant rounded-DEFAULT">
+<span class="material-symbols-outlined" style="font-size: 16px;">arrow_right</span>
+<span class="material-symbols-outlined text-outline" style="font-size: 18px;">folder</span>
+<span class="font-label-md text-label-md text-on-surface tracking-normal font-medium">Testing</span>
+</div>
+</div>
+<!-- Independent Files -->
+<div class="flex items-center gap-sm p-xs pl-6 hover:bg-surface-variant text-on-surface-variant rounded-DEFAULT cursor-pointer group transition-colors">
+<span class="material-symbols-outlined text-outline" style="font-size: 18px;">integration_instructions</span>
+<span class="font-body-md text-body-md truncate">CI/CD Pipeline Design</span>
+</div>
+</div>
+</aside>
+<!-- Document Preview Canvas -->
+<section class="flex-1 flex flex-col overflow-hidden relative">
+<!-- Document Toolbar -->
+<div class="h-12 border-b border-outline-variant bg-surface-container-lowest flex items-center justify-between px-md shrink-0">
+<div class="flex items-center gap-md">
+<div class="flex items-center gap-sm px-sm py-1 bg-surface-container rounded-DEFAULT border border-outline-variant">
+<span class="w-2 h-2 rounded-full bg-green-500"></span>
+<span class="font-label-md text-label-md text-on-surface uppercase text-[10px]">Synced</span>
+</div>
+<span class="text-outline-variant">|</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Last edited by <strong>RequirementsAgent v2.1</strong> 10 mins ago</span>
+</div>
+<div class="flex items-center gap-sm">
+<button class="h-8 px-sm flex items-center gap-xs text-on-surface-variant hover:bg-surface-variant rounded-DEFAULT border border-transparent hover:border-outline-variant transition-all">
+<span class="material-symbols-outlined" style="font-size: 18px;">history</span>
+<span class="font-label-md text-label-md">History</span>
+</button>
+<button class="h-8 px-sm flex items-center gap-xs text-on-surface-variant hover:bg-surface-variant rounded-DEFAULT border border-transparent hover:border-outline-variant transition-all">
+<span class="material-symbols-outlined" style="font-size: 18px;">download</span>
+<span class="font-label-md text-label-md">Export</span>
+</button>
+<button class="h-8 px-md flex items-center gap-xs bg-primary text-on-primary rounded-DEFAULT hover:bg-primary-container hover:text-on-primary-container transition-colors shadow-sm">
+<span class="material-symbols-outlined" style="font-size: 18px;">edit</span>
+<span class="font-label-md text-label-md">Edit</span>
+</button>
+</div>
+</div>
+<!-- Document Scrollable Area -->
+<div class="flex-1 overflow-y-auto custom-scroll bg-surface-container-low p-lg flex justify-center">
+<!-- The Document Paper -->
+<article class="bg-surface-container-lowest w-full max-w-[850px] min-h-full border border-outline-variant shadow-sm rounded-DEFAULT p-[48px] sm:p-[64px] mb-lg relative">
+<!-- Watermark -->
+<div class="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none overflow-hidden">
+<span class="font-headline-xl text-[120px] font-black transform -rotate-45 whitespace-nowrap text-on-surface">DRAFT v1.0</span>
+</div>
+<!-- Doc Header -->
+<header class="mb-xl pb-md border-b-2 border-surface-variant">
+<h1 class="font-headline-xl text-headline-xl text-on-surface mb-sm">Software Requirements Specification (SRS)</h1>
+<div class="flex flex-wrap gap-x-6 gap-y-2 font-body-md text-body-md text-on-surface-variant">
+<div><strong class="text-on-surface">Project:</strong> Nexus Automation</div>
+<div><strong class="text-on-surface">Author:</strong> RequirementsAgent v2.1</div>
+<div><strong class="text-on-surface">Date:</strong> October 24, 2023</div>
+<div><strong class="text-on-surface">Version:</strong> 1.0.4</div>
+</div>
+</header>
+<!-- Doc Content Blocks -->
+<div class="space-y-lg text-on-surface font-body-lg text-body-lg">
+<section>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-md">1. Introduction</h2>
+<p class="mb-sm">This Software Requirements Specification (SRS) documents the requirements for the new automation module within the Nexus SDLC platform. It provides a complete description of the system's behavior, establishing the foundation for the subsequent design and implementation phases orchestrated by the agent swarm.</p>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mt-md mb-sm">1.1 Purpose</h3>
+<p>The primary purpose of this module is to abstract complex CI/CD pipeline configurations into a visual interface, allowing non-DevOps engineers to provision environments via natural language prompts interpreted by the <code class="font-code-sm text-code-sm bg-surface-container px-1 py-0.5 rounded text-primary">ProvisioningAgent</code>.</p>
+</section>
+<section>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-md">2. Overall Description</h2>
+<p class="mb-md">The product acts as an intermediary layer between user intent and underlying infrastructure-as-code (IaC) templates.</p>
+<div class="bg-surface-container border-l-4 border-primary p-md rounded-r-DEFAULT mb-md">
+<h4 class="font-label-md text-label-md text-primary uppercase mb-xs tracking-wider">Agent Note</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Requirement gathered from stakeholder interview transcripts processing. Confidence score: 94%.</p>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mt-md mb-sm">2.1 User Characteristics</h3>
+<ul class="list-disc pl-6 space-y-2 mb-md font-body-md text-body-md">
+<li><strong>Product Managers:</strong> Need high-level overview of deployment status without technical jargon.</li>
+<li><strong>Junior Developers:</strong> Require guided setup for new microservices.</li>
+<li><strong>DevOps Engineers:</strong> Need override capabilities and access to raw generated templates.</li>
+</ul>
+</section>
+<section>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-md">3. Specific Requirements</h2>
+<div class="border border-outline-variant rounded-DEFAULT overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant">
+<th class="p-sm font-label-md text-label-md text-on-surface border-r border-outline-variant w-24">ID</th>
+<th class="p-sm font-label-md text-label-md text-on-surface border-r border-outline-variant">Requirement</th>
+<th class="p-sm font-label-md text-label-md text-on-surface w-32">Priority</th>
+</tr>
+</thead>
+<tbody class="font-body-md text-body-md">
+<tr class="border-b border-outline-variant hover:bg-surface transition-colors">
+<td class="p-sm border-r border-outline-variant font-code-sm text-code-sm text-on-surface-variant">REQ-001</td>
+<td class="p-sm border-r border-outline-variant">System shall parse natural language inputs to determine required cloud resources.</td>
+<td class="p-sm">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-error-container text-on-error-container font-label-md text-[10px] uppercase">High</span>
+</td>
+</tr>
+<tr class="border-b border-outline-variant hover:bg-surface transition-colors">
+<td class="p-sm border-r border-outline-variant font-code-sm text-code-sm text-on-surface-variant">REQ-002</td>
+<td class="p-sm border-r border-outline-variant">System must generate compliant Terraform scripts within 5 seconds of prompt submission.</td>
+<td class="p-sm">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-md text-[10px] uppercase">Medium</span>
+</td>
+</tr>
+<tr class="hover:bg-surface transition-colors">
+<td class="p-sm border-r border-outline-variant font-code-sm text-code-sm text-on-surface-variant">REQ-003</td>
+<td class="p-sm border-r border-outline-variant">Provide a visual dry-run diff before executing infrastructure changes.</td>
+<td class="p-sm">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-error-container text-on-error-container font-label-md text-[10px] uppercase">High</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+</article>
+</div>
+</section>
+</main>
+</div>
+</body></html>
