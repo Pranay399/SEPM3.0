@@ -46,7 +46,12 @@ class LLMEngine {
           model: this.MODEL,
           messages: messages,
           stream: false,
-          response_format: { type: 'json_object' }
+          response_format: { type: 'json_object' },
+          options: {
+            num_predict: 4096, // Increase max output tokens for more detail
+            temperature: 0.7,   // Balance creativity and focus
+            top_p: 0.9
+          }
         })
       });
 
@@ -89,7 +94,23 @@ class LLMEngine {
     switch (agentType) {
       case 'analyst':
         role = 'Business Analyst';
-        schemaStr = `{ "title": "Software Requirements Specification", "sections": { "smartGoals": { "specific": "", "measurable": "", "achievable": "", "relevant": "", "timeBound": "" }, "functionalRequirements": [ { "id": "FR-001", "description": "", "priority": "High", "category": "" } ], "nonFunctionalRequirements": [ { "id": "NFR-001", "description": "", "category": "" } ], "userStories": [ { "id": "US-001", "persona": "", "story": "", "acceptance": "", "points": 3 } ], "targetAudience": "", "projectScope": "" } }`;
+        schemaStr = `{ 
+          "title": "Software Requirements Specification", 
+          "sections": { 
+            "smartGoals": { "specific": "", "measurable": "", "achievable": "", "relevant": "", "timeBound": "" }, 
+            "functionalRequirements": [ 
+              { "id": "FR-001", "description": "DETAILED_DESCRIPTION", "priority": "High", "category": "Core/UI/Data", "rationale": "WHY_THIS_IS_NEEDED" } 
+            ], 
+            "nonFunctionalRequirements": [ 
+              { "id": "NFR-001", "description": "DETAILED_TECHNICAL_DESCRIPTION", "category": "Performance/Security/Scalability", "impact": "HOW_IT_AFFECTS_USER" } 
+            ], 
+            "userStories": [ 
+              { "id": "US-001", "persona": "", "story": "", "acceptance": "DETAILED_ACCEPTANCE_CRITERIA", "points": 3 } 
+            ], 
+            "targetAudience": "DETAILED_USER_SEGMENTS", 
+            "projectScope": "WHAT_IS_INCLUDED_AND_EXCLUDED" 
+          } 
+        }`;
         break;
       case 'strategist':
         role = 'Project Strategist & Scrum Master';
@@ -117,10 +138,14 @@ class LLMEngine {
       { 
         role: 'system', 
         content: `You are an elite ${role} with 20+ years of experience in high-scale software systems. 
-        Your goal is to provide deep, actionable, and technically accurate deliverables. 
+        Your goal is to provide deep, exhaustive, and technically accurate deliverables. 
         You MUST output ONLY valid JSON matching the exact schema provided. 
-        Do not include any conversational text outside the JSON. 
-        Focus on depth: if a section is an array, provide at least 5-8 high-quality items.` 
+        
+        CRITICAL CONSTRAINTS:
+        1. FOR EACH ARRAY SECTION (e.g., functionalRequirements, testCases, features): Provide a MINIMUM of 10 items.
+        2. Descriptions must be at least 2-3 sentences long.
+        3. Do not use placeholders. Provide specific, real-world examples relevant to the project.
+        4. Focus on edge cases and advanced technical details.` 
       },
       { 
         role: 'user', 

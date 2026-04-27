@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import api from '../utils/api';
 
 export default function DevOpsDashboard() {
@@ -28,8 +28,10 @@ export default function DevOpsDashboard() {
   }, [selectedProject]);
 
   const sections = artifact?.sections || {};
-  const pipeline = sections.cicdPipeline || { stages: [] };
+  const pipelineStages = sections.cicdPipeline?.stages || [];
   const monitoring = sections.monitoring || {};
+  const incidentManagement = sections.incidentManagement || {};
+  const deploymentStrategy = sections.deploymentStrategy || {};
 
   return (
     <div className="layout-main">
@@ -77,11 +79,11 @@ export default function DevOpsDashboard() {
                   <span className="material-symbols-outlined text-primary">route</span>
                   CI/CD Pipeline Definition
                 </h2>
-                <span className="chip chip-neutral">{sections.deploymentStrategy?.type || 'Standard'}</span>
+                <span className="chip chip-neutral">{deploymentStrategy.type || 'Standard'}</span>
               </div>
               
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flex: 1, padding: '16px 0', overflowX: 'auto' }}>
-                {pipeline.stages.map((stage, idx) => (
+                {pipelineStages.map((stage, idx) => (
                   <React.Fragment key={idx}>
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: '120px' }}>
                       <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: 'var(--secondary-container)', color: 'var(--on-secondary-container)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '8px', border: '1px solid var(--primary-fixed-dim)' }}>
@@ -94,7 +96,7 @@ export default function DevOpsDashboard() {
                       <span className="text-label-md text-on-surface" style={{ fontWeight: 600 }}>{stage.name}</span>
                       <span className="text-code-sm text-tertiary" style={{ fontSize: '10px' }}>{stage.tools}</span>
                     </div>
-                    {idx < pipeline.stages.length - 1 && (
+                    {idx < pipelineStages.length - 1 && (
                       <div style={{ flex: 1, height: '1px', background: 'var(--primary-container)', margin: '0 8px' }} />
                     )}
                   </React.Fragment>
@@ -104,7 +106,7 @@ export default function DevOpsDashboard() {
               <div style={{ marginTop: 'auto', paddingTop: '12px', borderTop: '1px solid var(--outline-variant)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '14px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color: 'var(--on-surface-variant)' }}>
                   <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>info</span>
-                  <span style={{ fontSize: '12px' }}>Rollback Strategy: {sections.deploymentStrategy?.rollback}</span>
+                  <span style={{ fontSize: '12px' }}>Rollback Strategy: {deploymentStrategy.rollback || 'N/A'}</span>
                 </div>
               </div>
             </div>
@@ -147,7 +149,7 @@ export default function DevOpsDashboard() {
                 <div>
                   <h3 className="text-label-lg text-on-surface mb-2">Incident Flow</h3>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                    {(sections.incidentManagement?.flow || []).map((step, i) => (
+                    {(incidentManagement.flow || []).map((step, i) => (
                       <div key={i} className="text-body-md text-on-surface-variant" style={{ fontSize: '13px', display: 'flex', alignItems: 'center', gap: '8px' }}>
                         <span style={{ width: '18px', height: '18px', borderRadius: '50%', background: 'var(--primary-container)', color: 'var(--on-primary-container)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '10px' }}>{i+1}</span>
                         {step}
@@ -157,7 +159,7 @@ export default function DevOpsDashboard() {
                 </div>
                 <div>
                   <h3 className="text-label-lg text-on-surface mb-2">Escalation Path</h3>
-                  {Object.entries(sections.incidentManagement?.escalation || {}).map(([level, group]) => (
+                  {Object.entries(incidentManagement.escalation || {}).map(([level, group]) => (
                     <div key={level} style={{ marginBottom: '8px' }}>
                       <span className="text-label-md text-primary" style={{ fontSize: '11px' }}>{level}</span>
                       <div className="text-body-md text-on-surface" style={{ fontSize: '13px' }}>{group}</div>
