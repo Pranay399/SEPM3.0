@@ -154,7 +154,17 @@ class LLMEngine {
         break;
       case 'taskmaster':
         role = 'Technical Taskmaster / Delivery Manager';
-        schemaStr = `{ "title": "Task Breakdown & Sprint Plan", "sections": { "taskBreakdown": [ { "key": "NX-001", "name": "", "agent": "", "status": "To Do", "priority": "High", "estimate": "5 pts" } ], "sprintPlan": [ { "sprint": 1, "goal": "", "tasks": ["NX-001"], "velocity": 0 } ], "roleAllocation": { "Role Name": ["Responsibility"] }, "timeline": { "start": "YYYY-MM-DD", "mvpDelivery": "YYYY-MM-DD", "finalDelivery": "YYYY-MM-DD" } } }`;
+        schemaStr = `{ 
+          "title": "Task Breakdown & Sprint Plan", 
+          "sections": { 
+            "taskBreakdown": [ 
+              { "key": "NX-001", "name": "DETAILED_TASK_NAME", "agent": "DevOps/Backend/Frontend/QA", "status": "To Do", "priority": "High/Medium/Low", "estimate": "5 pts" } 
+            ], 
+            "sprintPlan": [ { "sprint": 1, "goal": "", "tasks": ["NX-001"], "velocity": 0 } ], 
+            "roleAllocation": { "Role Name": ["Responsibility"] }, 
+            "timeline": { "start": "YYYY-MM-DD", "mvpDelivery": "YYYY-MM-DD", "finalDelivery": "YYYY-MM-DD" } 
+          } 
+        }`;
         break;
     }
 
@@ -183,6 +193,11 @@ class LLMEngine {
             * If it involves Low-Level/Embedded: Use Rust or C++.
         - MODERN INFRASTRUCTURE: Suggest modern deployment targets like AWS Lambda, Google Cloud Run, or specialized PaaS.
         - UNIQUE RATIONALE: You must provide a 3-sentence technical justification for every choice.` : ''}
+        ${agentType === 'taskmaster' ? `
+        - TICKET GENERATION: You MUST provide a MINIMUM of 15 tasks covering the entire project lifecycle.
+        - KEY FORMAT: Always use 'NX-XXX' format for task keys.
+        - AGENT ALLOCATION: Explicitly assign each task to one of: DevOps, Backend, Frontend, or QA.
+        - ESTIMATES: Provide realistic story point estimates (1, 2, 3, 5, 8, 13).` : ''}
         ${agentType === 'analyst' ? '- Focus on deep business logic and user-centric edge cases.' : ''}` 
       },
       { 

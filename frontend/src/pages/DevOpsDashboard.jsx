@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import api from '../utils/api';
 
 export default function DevOpsDashboard() {
@@ -6,26 +6,43 @@ export default function DevOpsDashboard() {
   const [selectedProject, setSelectedProject] = useState(null);
   const [artifact, setArtifact] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
 
-  useEffect(() => {
+  const fetchProjects = useCallback(() => {
     api.get('/projects').then(res => {
       setProjects(res.data.projects);
-      if (res.data.projects.length > 0) {
+      if (res.data.projects.length > 0 && !selectedProject) {
         setSelectedProject(res.data.projects[0]);
-      } else {
+      } else if (res.data.projects.length === 0) {
         setLoading(false);
       }
     });
-  }, []);
+  }, [selectedProject]);
 
-  useEffect(() => {
+  const fetchArtifact = useCallback(() => {
     if (!selectedProject) return;
-    setLoading(true);
+    setRefreshing(true);
     api.get(`/projects/${selectedProject.id}/artifacts`).then(res => {
       setArtifact(res.data.artifacts.devops || null);
       setLoading(false);
-    }).catch(() => setLoading(false));
+      setRefreshing(false);
+    }).catch(() => {
+      setLoading(false);
+      setRefreshing(false);
+    });
   }, [selectedProject]);
+
+  useEffect(() => {
+    fetchProjects();
+  }, [fetchProjects]);
+
+  useEffect(() => {
+    fetchArtifact();
+  }, [fetchArtifact]);
+
+  const handleRefresh = () => {
+    fetchArtifact();
+  };
 
   const sections = artifact?.sections || {};
   const pipelineStages = sections.cicdPipeline?.stages || [];
@@ -46,15 +63,24 @@ export default function DevOpsDashboard() {
                 className="text-label-lg"
                 style={{ background: 'transparent', border: 'none', borderBottom: '1px solid var(--outline-variant)', color: 'var(--primary)', cursor: 'pointer', padding: '2px 4px' }}
                 value={selectedProject?.id || ''}
-                onChange={(e) => setSelectedProject(projects.find(p => p.id === e.target.value))}
+                onChange={(e) => {
+                  setLoading(true);
+                  setSelectedProject(projects.find(p => p.id === e.target.value));
+                }}
               >
                 {projects.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
               </select>
             </div>
           </div>
-          <button className="btn btn-secondary" onClick={() => window.location.reload()}>
-            <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>sync</span>
-            Refresh
+          <button 
+            className={`btn ${refreshing ? 'btn-ghost' : 'btn-secondary'}`} 
+            onClick={handleRefresh}
+            disabled={refreshing}
+          >
+            <span className={`material-symbols-outlined ${refreshing ? 'animate-spin' : ''}`} style={{ fontSize: '16px' }}>
+              sync
+            </span>
+            {refreshing ? 'Refreshing...' : 'Refresh'}
           </button>
         </div>
 
