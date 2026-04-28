@@ -99,6 +99,14 @@ export default function ArchitectDashboard() {
                     </div>
                   ))}
                 </div>
+                {techStack.techStackRationale && (
+                  <div style={{ marginTop: '16px', paddingTop: '12px', borderTop: '1px solid var(--surface-container-high)' }}>
+                    <h4 className="text-label-md text-primary" style={{ fontSize: '10px', textTransform: 'uppercase', marginBottom: '4px' }}>Strategic Rationale</h4>
+                    <p className="text-body-md text-on-surface-variant" style={{ fontSize: '12px', fontStyle: 'italic', lineHeight: '1.4' }}>
+                      "{techStack.techStackRationale}"
+                    </p>
+                  </div>
+                )}
               </div>
 
               <div className="card">

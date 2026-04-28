@@ -118,7 +118,26 @@ class LLMEngine {
         break;
       case 'architect':
         role = 'Systems Architect';
-        schemaStr = `{ "title": "System Architecture Document", "sections": { "techStackDecision": { "frontend": "", "backend": "", "database": "", "caching": "", "containerization": "", "orchestration": "", "cicd": "", "monitoring": "" }, "systemDesign": { "pattern": "", "communication": "", "authentication": "", "apiGateway": "" }, "components": [ { "name": "", "description": "", "technology": "" } ], "dataModel": { "entities": [ { "name": "", "fields": [""] } ], "relationships": [""] }, "securityArchitecture": { "authentication": "", "authorization": "", "encryption": "", "compliance": "" } } }`;
+        schemaStr = `{ 
+          "title": "System Architecture Document", 
+          "sections": { 
+            "techStackDecision": { 
+              "frontend": "", 
+              "backend": "", 
+              "database": "", 
+              "caching": "", 
+              "containerization": "", 
+              "orchestration": "", 
+              "cicd": "", 
+              "monitoring": "",
+              "techStackRationale": "EXPLAIN_WHY_THIS_STACK_WAS_CHOSEN_FOR_THIS_SPECIFIC_PROBLEM"
+            }, 
+            "systemDesign": { "pattern": "", "communication": "", "authentication": "", "apiGateway": "" }, 
+            "components": [ { "name": "", "description": "", "technology": "" } ], 
+            "dataModel": { "entities": [ { "name": "", "fields": [""] } ], "relationships": [""] }, 
+            "securityArchitecture": { "authentication": "", "authorization": "", "encryption": "", "compliance": "" } 
+          } 
+        }`;
         break;
       case 'qaqc':
         role = 'QA/QC Engineer';
@@ -142,10 +161,17 @@ class LLMEngine {
         You MUST output ONLY valid JSON matching the exact schema provided. 
         
         CRITICAL CONSTRAINTS:
-        1. FOR EACH ARRAY SECTION (e.g., functionalRequirements, testCases, features): Provide a MINIMUM of 10 items.
+        1. FOR EACH ARRAY SECTION: Provide a MINIMUM of 10 items.
         2. Descriptions must be at least 2-3 sentences long.
         3. Do not use placeholders. Provide specific, real-world examples relevant to the project.
-        4. Focus on edge cases and advanced technical details.` 
+        4. Focus on edge cases and advanced technical details.
+        
+        AGENT-SPECIFIC GUIDANCE (${agentType.toUpperCase()}):
+        ${agentType === 'architect' ? `
+        - AVOID GENERIC STACKS: Do not default to MERN/MEAN unless it is the absolute best fit.
+        - SPECIALIZED TECH: Consider specialized tools (e.g., Elixir for concurrency, Rust for performance, GraphQL for complex APIs, specialized DBs like TimeScaleDB, Neo4j, or Chroma).
+        - RATIONALE: Every technical choice must be justified based on the Problem Statement.` : ''}
+        ${agentType === 'analyst' ? '- Focus on deep business logic and user-centric edge cases.' : ''}` 
       },
       { 
         role: 'user', 
