@@ -83,24 +83,26 @@ export default function DevOpsDashboard() {
               </div>
               
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flex: 1, padding: '16px 0', overflowX: 'auto' }}>
-                {pipelineStages.map((stage, idx) => (
-                  <React.Fragment key={idx}>
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: '120px' }}>
-                      <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: 'var(--secondary-container)', color: 'var(--on-secondary-container)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '8px', border: '1px solid var(--primary-fixed-dim)' }}>
-                        <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>
-                          {stage.name.toLowerCase().includes('build') ? 'package_2' : 
-                           stage.name.toLowerCase().includes('test') ? 'science' : 
-                           stage.name.toLowerCase().includes('deploy') ? 'cloud_upload' : 'settings'}
-                        </span>
+                {pipelineStages.map((stage, idx) => {
+                  return (
+                    <React.Fragment key={idx}>
+                      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: '120px' }}>
+                        <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: 'var(--secondary-container)', color: 'var(--on-secondary-container)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '8px', border: '1px solid var(--primary-fixed-dim)' }}>
+                          <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>
+                            {stage.name.toLowerCase().includes('build') ? 'package_2' : 
+                             stage.name.toLowerCase().includes('test') ? 'science' : 
+                             stage.name.toLowerCase().includes('deploy') ? 'cloud_upload' : 'settings'}
+                          </span>
+                        </div>
+                        <span className="text-label-md text-on-surface" style={{ fontWeight: 600 }}>{stage.name}</span>
+                        <span className="text-code-sm text-tertiary" style={{ fontSize: '10px' }}>{stage.tools}</span>
                       </div>
-                      <span className="text-label-md text-on-surface" style={{ fontWeight: 600 }}>{stage.name}</span>
-                      <span className="text-code-sm text-tertiary" style={{ fontSize: '10px' }}>{stage.tools}</span>
-                    </div>
-                    {idx < pipelineStages.length - 1 && (
-                      <div style={{ flex: 1, height: '1px', background: 'var(--primary-container)', margin: '0 8px' }} />
-                    )}
-                  </React.Fragment>
-                ))}
+                      {idx < pipelineStages.length - 1 && (
+                        <div style={{ flex: 1, height: '1px', background: 'var(--primary-container)', margin: '0 8px' }} />
+                      )}
+                    </React.Fragment>
+                  );
+                })}
               </div>
 
               <div style={{ marginTop: 'auto', paddingTop: '12px', borderTop: '1px solid var(--outline-variant)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '14px' }}>
