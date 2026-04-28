@@ -123,19 +123,24 @@ class LLMEngine {
         break;
       case 'architect':
         role = 'Systems Architect';
+        // Select recommended stack based on domain
+        const recStack = categories.includes('AI') ? this.techStacks.data : 
+                         categories.includes('MOBILE') ? this.techStacks.mobile :
+                         categories.includes('ECOMMERCE') ? this.techStacks.ecommerce : this.techStacks.default;
+                         
         schemaStr = `{ 
           "title": "System Architecture Document", 
           "sections": { 
             "techStackDecision": { 
-              "frontend": "", 
-              "backend": "", 
-              "database": "", 
-              "caching": "", 
-              "containerization": "", 
-              "orchestration": "", 
-              "cicd": "", 
-              "monitoring": "",
-              "techStackRationale": "EXPLAIN_WHY_THIS_STACK_WAS_CHOSEN_FOR_THIS_SPECIFIC_PROBLEM"
+              "frontend": "${recStack.frontend} (MANDATORY_STARTING_POINT)", 
+              "backend": "${recStack.backend} (MANDATORY_STARTING_POINT)", 
+              "database": "${recStack.database} (MANDATORY_STARTING_POINT)", 
+              "caching": "${recStack.cache} (MANDATORY_STARTING_POINT)", 
+              "containerization": "Docker", 
+              "orchestration": "Kubernetes", 
+              "cicd": "GitHub Actions", 
+              "monitoring": "Prometheus/Grafana",
+              "techStackRationale": "EXPLAIN_WHY_THIS_DOMAIN_SPECIFIC_STACK_WAS_CHOSEN"
             }, 
             "systemDesign": { "pattern": "", "communication": "", "authentication": "", "apiGateway": "" }, 
             "components": [ { "name": "", "description": "", "technology": "" } ], 
