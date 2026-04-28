@@ -48,9 +48,10 @@ class LLMEngine {
           stream: false,
           response_format: { type: 'json_object' },
           options: {
-            num_predict: 4096, // Increase max output tokens for more detail
-            temperature: 0.7,   // Balance creativity and focus
-            top_p: 0.9
+            num_predict: 4096,
+            temperature: agentType === 'architect' ? 0.85 : 0.7, // Higher temp for more creative architecture
+            top_p: 0.9,
+            num_ctx: 8192
           }
         })
       });
@@ -88,8 +89,12 @@ class LLMEngine {
   }
 
   _buildMessages(agentType, projectData, previousOutputs) {
-    let schemaStr = '';
-    let role = '';
+    const categories = Object.entries(this.techKeywords)
+      .filter(([cat, keywords]) => 
+        keywords.some(k => (projectData.name + ' ' + projectData.problemStatement).toLowerCase().includes(k))
+      )
+      .map(([cat]) => cat.toUpperCase());
+    const detectedDomain = categories.length > 0 ? categories.join(', ') : 'GENERAL SOFTWARE';
 
     switch (agentType) {
       case 'analyst':
@@ -160,6 +165,8 @@ class LLMEngine {
         Your goal is to provide deep, exhaustive, and technically accurate deliverables. 
         You MUST output ONLY valid JSON matching the exact schema provided. 
         
+        DETECTED DOMAIN: ${detectedDomain}
+        
         CRITICAL CONSTRAINTS:
         1. FOR EACH ARRAY SECTION: Provide a MINIMUM of 10 items.
         2. Descriptions must be at least 2-3 sentences long.
@@ -168,9 +175,14 @@ class LLMEngine {
         
         AGENT-SPECIFIC GUIDANCE (${agentType.toUpperCase()}):
         ${agentType === 'architect' ? `
-        - AVOID GENERIC STACKS: Do not default to MERN/MEAN unless it is the absolute best fit.
-        - SPECIALIZED TECH: Consider specialized tools (e.g., Elixir for concurrency, Rust for performance, GraphQL for complex APIs, specialized DBs like TimeScaleDB, Neo4j, or Chroma).
-        - RATIONALE: Every technical choice must be justified based on the Problem Statement.` : ''}
+        - MANDATORY TECHNOLOGICAL DIVERSITY: You MUST NOT default to a "Standard MERN" stack (React/Node/Mongo). 
+        - DOMAIN-SPECIFIC SELECTION: 
+            * If the project involves AI/ML/Data: Use Python (FastAPI/Flask) + vector databases (Chroma/Pinecone).
+            * If it involves High-Concurrency/Real-time: Use Go, Elixir, or Erlang.
+            * If it involves Enterprise/Banking: Use Java (Spring Boot) or C# (.NET).
+            * If it involves Low-Level/Embedded: Use Rust or C++.
+        - MODERN INFRASTRUCTURE: Suggest modern deployment targets like AWS Lambda, Google Cloud Run, or specialized PaaS.
+        - UNIQUE RATIONALE: You must provide a 3-sentence technical justification for every choice.` : ''}
         ${agentType === 'analyst' ? '- Focus on deep business logic and user-centric edge cases.' : ''}` 
       },
       { 
@@ -319,7 +331,17 @@ ${schemaStr}` }
       title: 'System Architecture Document (Fallback)',
       agentVersion: 'ArchitectAgent v3.0 (Fallback)',
       sections: {
-        techStackDecision: { frontend: 'React', backend: 'Node.js', database: 'PostgreSQL', caching: 'Redis', containerization: 'Docker', orchestration: 'Docker Compose', cicd: 'GitHub Actions', monitoring: 'Prometheus' },
+        techStackDecision: { 
+          frontend: project.name.includes('AI') ? 'Streamlit / Next.js' : 'React + Tailwind', 
+          backend: project.name.includes('AI') ? 'FastAPI (Python)' : 'Node.js (Express)', 
+          database: 'Project-specific DB (e.g., PostgreSQL/MongoDB)', 
+          caching: 'Redis', 
+          containerization: 'Docker', 
+          orchestration: 'Kubernetes', 
+          cicd: 'GitHub Actions', 
+          monitoring: 'Prometheus/Grafana',
+          techStackRationale: 'Baseline architecture generated due to model response complexity.'
+        },
         systemDesign: { pattern: 'Microservices', communication: 'REST API', authentication: 'JWT', apiGateway: 'Express' },
         components: [ { name: 'API Gateway', description: 'Entry point', technology: 'Express' } ],
         dataModel: { entities: [ { name: 'User', fields: ['id', 'email'] } ], relationships: ['User -> Project'] },
