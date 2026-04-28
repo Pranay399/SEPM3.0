@@ -67,20 +67,15 @@ class AgentPipeline {
 
         if (onProgress) onProgress(projectId, pipelineState);
 
-        // Simulate progressive work (3 stages)
-        await this._simulateWork(300);
+        if (onProgress) onProgress(projectId, pipelineState);
         pipelineState.agents[agent.id].progress = 40;
         if (onProgress) onProgress(projectId, pipelineState);
-
-        await this._simulateWork(400);
         pipelineState.agents[agent.id].progress = 70;
         if (onProgress) onProgress(projectId, pipelineState);
 
         // Generate output via LLM engine
         const output = await llmEngine.generate(agent.id, projectData, previousOutputs);
         previousOutputs[agent.id] = output;
-
-        await this._simulateWork(300);
 
         // Mark agent as complete
         pipelineState.agents[agent.id].status = 'completed';
@@ -149,9 +144,6 @@ class AgentPipeline {
     return activities[agentId] || 'Completed';
   }
 
-  _simulateWork(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
 }
 
 module.exports = new AgentPipeline();

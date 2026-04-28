@@ -34,7 +34,7 @@ class LLMEngine {
   /**
    * Main asynchronous entrypoint for pipeline agents.
    */
-  async generate(agentType, projectData, previousOutputs = {}, retries = 2) {
+  async generate(agentType, projectData, previousOutputs = {}, retries = 1) {
     console.log(`[LLMEngine] Requesting generation for agent: ${agentType} using ${this.MODEL} (Retries left: ${retries})`);
     try {
       const messages = this._buildMessages(agentType, projectData, previousOutputs);
@@ -48,10 +48,10 @@ class LLMEngine {
           stream: false,
           response_format: { type: 'json_object' },
           options: {
-            num_predict: 4096,
-            temperature: agentType === 'architect' ? 0.85 : 0.7, // Higher temp for more creative architecture
-            top_p: 0.9,
-            num_ctx: 8192
+            num_predict: 2048,
+            temperature: agentType === 'architect' ? 0.8 : 0.65,
+            top_p: 0.85,
+            num_ctx: 4096
           }
         })
       });
@@ -211,7 +211,7 @@ PROJECT IDENTIFICATION:
 - Complexity Level: ${projectData.complexity}
 
 CONTEXT FROM PREVIOUS AGENTS:
-${JSON.stringify(previousOutputs, null, 2)}
+${this._summarizePreviousOutputs(previousOutputs)}
 
 INSTRUCTIONS:
 1. Analyze the project details and the context from previous stages.
@@ -222,6 +222,31 @@ INSTRUCTIONS:
 REQUIRED JSON SCHEMA:
 ${schemaStr}` }
     ];
+  }
+
+  /**
+   * Compress previous agent outputs into a lightweight summary
+   * to keep prompt size manageable for the local LLM.
+   */
+  _summarizePreviousOutputs(previousOutputs) {
+    if (!previousOutputs || Object.keys(previousOutputs).length === 0) {
+      return 'No previous agent outputs available.';
+    }
+    const lines = [];
+    for (const [agentId, output] of Object.entries(previousOutputs)) {
+      const title = output?.title || `${agentId} output`;
+      const sectionKeys = output?.sections ? Object.keys(output.sections).join(', ') : 'N/A';
+      // Extract a few key values for richer context without full dump
+      let keyDetails = '';
+      if (output?.sections) {
+        const s = output.sections;
+        if (s.techStackDecision) keyDetails = ` | Stack: ${s.techStackDecision.frontend || ''}, ${s.techStackDecision.backend || ''}, ${s.techStackDecision.database || ''}`;
+        if (s.methodologySelection) keyDetails = ` | Method: ${s.methodologySelection.chosen || ''}`;
+        if (s.functionalRequirements) keyDetails = ` | ${s.functionalRequirements.length || 0} functional reqs`;
+      }
+      lines.push(`- ${agentId.toUpperCase()}: "${title}" | Sections: [${sectionKeys}]${keyDetails}`);
+    }
+    return lines.join('\n');
   }
 
   _extractJSON(text) {
